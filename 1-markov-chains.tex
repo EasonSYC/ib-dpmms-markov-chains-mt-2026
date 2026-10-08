@@ -3,7 +3,7 @@
 For this course, we will always take \(I\) to be a countable set and all our random variables will be defined on the same probability space \(\pqty{\Omega, \eventSpace, \Prob}\).
 
 \begin{definition}[Markov Chain, Time-Homoegneous, Transition Matrix]
-    A \emph{Markov chain} is a \emph{random process} (or a \emph{stochastic process})
+    A \term{Markov chain} is a \term{random process} (or a \term{stochastic process})
     \[
         X = \pqty{X_0, X_1, \ldots} = \pqty{X_n}_{n \geq 0}
     \]
@@ -13,12 +13,12 @@ For this course, we will always take \(I\) to be a countable set and all our ran
     \]
     for any sequence of states \(x_0, x_1, \ldots, x_{n + 1} \in I\) and any \(n \geq 0\).
 
-    If the probabilities \(\Prob\pqty{\Conditional{X_{n + 1} = y}{X_n = x}}\) is independent of \(n\), then the Markov chain is said to be \emph{homogeneous} (or \emph{time-homogeneous}). In this case, we define the \emph{transition matrix}
+    If the probabilities \(\Prob\pqty{\Conditional{X_{n + 1} = y}{X_n = x}}\) is independent of \(n\), then the Markov chain is said to be \term{homogeneous} (or \term{time-homogeneous}). In this case, we define the \term{transition matrix}
     \[
         P = \pqty{P_{xy}}_{x, y \in I}, \quad P_{xy} = P\pqty{x, y} = \Prob\pqty{\Conditional{X_{n + 1} = y}{X_n = x}}.
     \]
 
-    We say \(P\) is a \emph{stochastic matrix} because each row is a distribution in \(I\): \(P_{xy} \geq 0\) for all \(x, y \in I\), and
+    We say \(P\) is a \term{stochastic matrix} because each row is a distribution in \(I\): \(P_{xy} \geq 0\) for all \(x, y \in I\), and
     \[
         \sum_{y \in I} P_{xy} = 1, \quad \forall x \in I.
     \]
