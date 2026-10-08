@@ -24,6 +24,18 @@ For this course, we will always take \(I\) to be a countable set and all our ran
     \]
 \end{definition}
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{fig/markov-chain-example-1.png}
+    \caption{A Binary Markov chain}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{fig/markov-chain-example-2.png}
+    \caption{A Ternary Markov chain}
+\end{figure}
+
 \begin{examples}
     \begin{itemize}
         \item Consider the binary state \(I = \Bqty{0, 1}\), with the transition matrix
@@ -31,22 +43,10 @@ For this course, we will always take \(I\) to be a countable set and all our ran
             P = \pmqty{1 - \alpha & \alpha \\ \beta & 1 - \beta}.
         \]
 
-        \begin{figure}[ht!]
-            \centering
-            \includegraphics[width=0.75\textwidth]{fig/markov-chain-example-1.png}
-            \caption{A Binary Markov chain}
-        \end{figure}
-
         \item Consider the ternary state \(I = \pqty{1, 2, 3}\), with the transition matrix
         \[
             P = \pmqty{\flatfrac{1}{3} & \flatfrac{1}{3} & \flatfrac{1}{3} \\ \flatfrac{1}{2} & 0 & \flatfrac{1}{2} \\ 0 & 0 & 1}.
         \]
-
-        \begin{figure}[ht!]
-            \centering
-            \includegraphics[width=0.75\textwidth]{fig/markov-chain-example-2.png}
-            \caption{A Ternary Markov chain}
-        \end{figure}
 
         At large times, it seems like the case that the chain is in state \(3\) is absorbing, and the chain will eventually end up in state \(3\) with probability \(1\).
     \end{itemize}
