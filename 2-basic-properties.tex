@@ -1,0 +1,169 @@
+\section{Basic Properties}
+
+\begin{theorem}[Characterisation of Markov Chains]
+    \label{thm:markov-chain-characterisation}%
+    \(X \sim \Markov\pqty{\lambda, P}\) if and only if
+    \[
+        \Prob\pqty{X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n} = \lambda_{x_0} P_{x_0 x_1} P_{x_1 x_2} \cdots P_{x_{n - 1} x_n}
+    \]
+    for all paths \(n \geq 0\) and \(x_0, x_1, \ldots, x_n \in I\), and
+    \[
+        \Prob\pqty{X_0 = i} = \lambda_i, \quad \forall i \in I.
+    \]
+\end{theorem}
+
+\begin{proof}
+    If the process \(X \sim \Markov\pqty{\lambda, P}\), then
+    \begin{align*}
+        \Prob\pqty{X_0 = x_0, \ldots, X_n = x_n} &= \Prob\pqty{\Conditional{X_0 = x_0}{X_{n - 1} = x_{n - 1}, \ldots, X_0 = x_0}} \cdot \Prob\pqty{X_{n - 1} = x_{n - 1}, \ldots, X_0 = x_0} \\
+        &= P_{x_{n - 1} x_n} \Prob\pqty{X_{n - 1} = x_{n - 1}, \ldots, X_0 = x_0} \\
+        &= \cdots \\
+        &= P_{x_{n - 1} x_n} P_{x_{n - 2} x_{n - 1}} \cdots P_{x_0 x_1} \Prob\pqty{X_0 = x_0} \\
+        &= P_{x_{n - 1} x_n} P_{x_{n - 2} x_{n - 1}} \cdots P_{x_0 x_1} \lambda_{x_0}.
+    \end{align*}
+
+    Conversely, if we have the above equation, then
+    \begin{align*}
+        \Prob\pqty{\Conditional{X_{n + 1} = x_{n + 1}}{X_n = x_n, \ldots, X_0 = x_0}} &= \frac{\Prob\pqty{X_{n + 1} = x_{n + 1}, X_n = x_n, \ldots, X_0 = x_0}}{\Prob\pqty{X_n = x_n, \ldots, X_0 = x_0}} \\
+        &= \frac{\lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{n - 1} x_n} P_{x_n x_{n + 1}}}{\lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{n - 1} x_n}} \\
+        &= P_{x_n x_{n + 1}} \\
+        &= \Prob\pqty{\Conditional{X_{n + 1} = x_{n + 1}}{X_n = x_n}}.
+    \end{align*}
+\end{proof}
+
+\begin{remark}
+    If \(X = \pqty{X_n} _{n \geq 0}\) is a Markov chain, then given \(X_{n}\), \(X_{n + 1}\) and \(X_{n - 1}\) are \emph{conditionally independent}, but not typically independent.
+\end{remark}
+
+\begin{example}
+    If \(\pqty{X_n}_{n \geq 0}\) are independent and identically distributed, then \(\pqty{X_n}\) is a Markov chain with transition matrix \(P_{xy} = \Prob\pqty{X_1 = y}\) for all \(x, y \in I\).
+\end{example}
+
+\begin{definition}[Unit Mass Notation]
+    For any \(i \in I\), we let \(\kronecker_i\) denote the probability distribution that places a unit mass at \(i\):
+    \[
+        \delta_{ij} = \indicator\Bqty{j = i} = \begin{cases}
+            1, & j = i, \\
+            0, & j \neq i.
+        \end{cases}
+    \]
+\end{definition}
+
+Recall the following facts.
+
+\begin{itemize}
+    \item The random variables \(\pqty{X_0, X_1, \ldots, X_n}\) are \emph{independent}, if
+    \[
+        \Prob\pqty{X_0 = x_0, X_1 = x_1, \ldots, X_n = x_n} = \Prob\pqty{X_0 = x_0} \Prob\pqty{X_1 = x_1} \cdots \Prob\pqty{X_n = x_n}.
+    \]
+    \item The random variables \(\pqty{X_0, X_1, \ldots}\) are \emph{independent}, if \(\pqty{X_0, X_1, \ldots, X_n}\) are independent, for all \(n \geq 0\).
+    \item The processes \(X = \pqty{X_n}_{n \geq 0}\) and \(Y = \pqty{Y_n}_{n \geq 0}\) are \emph{independent}, if for any \(0 \leq t_1 < t_2 < \cdots < t_m\) and \(0 \leq s_1 < s_2 < \cdots < s_k\), we have
+    \begin{align*}
+        &\Prob\pqty{X_{t_1} = x_1, \ldots, X_{t_m} = x_m, Y_{s_1} = y_1, \ldots, Y_{s_k} = y_k} \\
+        &\hspace{16em} = \Prob\pqty{X_{t_1} = x_1, \ldots, X_{t_m} = x_m} \Prob\pqty{Y_{s_1} = y_1, \ldots, Y_{s_k} = y_k}.
+    \end{align*}
+    for all \(x_1, \ldots, x_m, y_1, \ldots, y_k\).
+\end{itemize}
+
+\begin{theorem}[Markov Property]
+    \label{thm:markov-property}%
+    Suppose \(X = \pqty{X_n}_{n \geq 0} \sim \Markov\pqty{\lambda, P}\) and let \(m \geq 1\) and \(i \in I\). Then, conditional on \(\Bqty{X_m = i}\), the new process \(\pqty{X_{m + n}}_{n \geq 0} \sim \Markov\pqty{\delta_i, P}\) and it is independent of \(\pqty{X_0, \ldots, X_m}\)
+\end{theorem}
+
+\begin{proof}
+    Clearly,
+    \[
+        \Prob\pqty{X_m = j} = \delta_{ij}
+    \]
+    since we conditioned on \(\Bqty{X_m = i}\).
+    \begin{align*}
+        &\phantom{=} \Prob\pqty{\Conditional{X_m = x_m, X_{m + 1} = x_{m + 1}, \ldots, X_{m + n} = x_{m + n}}{X_m = i}} \\
+        &= \indicator \Bqty{x_m = i} \frac{\Prob\pqty{X_m = x_m, X_{m + 1} = x_{m + 1}, \ldots, X_{m + n} = x_{m + n}}}{\Prob\pqty{X_m = x_m}} \\
+        &= \frac{\indicator \Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} \sum_{x_0, \ldots, x_{m - 1} \in I} \Prob\pqty{X_0 = x_0, \ldots, X_m = x_m, X_{m + 1} = x_{m + 1}, \ldots, X_{m + n} = x_{m + n}} \\
+        &= \frac{\indicator \Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} \sum_{x_0, \ldots, x_{m - 1} \in I} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \\
+        &= \frac{\indicator \Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \sum_{x_0, \ldots, x_{m - 1} \in I} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} \\
+        &= \frac{\indicator \Bqty{x_m = i} \Prob\pqty{X_m = x_m}}{\Prob\pqty{X_m = x_m}} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \\
+        &= \indicator \Bqty{x_m = i} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}}
+    \end{align*}
+    which is precisely the condition for \(\Markov\pqty{\delta_i, P}\), by \autoref{thm:markov-chain-characterisation}.
+
+    To prove independence, fix times
+    \[
+        m < i_1 < i_2 < \cdots < i_k
+    \]
+    and states
+    \[
+        x_0, x_1, \ldots, x_m, x_{m + 1}, \ldots, x_{m + k}.
+    \]
+
+    Then,
+    \begin{align*}
+        \phantom{=} &\Prob\pqty{\Conditional{X_0 = x_0, \ldots, X_m = x_m, X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_m = i}} \\
+        &= \indicator\Bqty{x_m = i} \frac{\Prob\pqty{X_0 = x_0, \ldots, X_m = x_m, X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}}{\Prob\pqty{X_m = x_m}} \\
+        &= \frac{\indicator\Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} \Prob\pqty{X_0 = x_0, \ldots, X_m = x_m} \Prob\pqty{\Conditional{X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_0 = x_0, \ldots, X_m = x_m}} \\
+        &= \frac{\indicator\Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} \Prob\pqty{\Conditional{X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_m = x_m}}\\
+        &= \Prob\pqty{\Conditional{X_0 = x_0, \ldots, X_m = x_m}{X_m = i}} \cdot \Prob\pqty{\Conditional{X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_m = i}}
+    \end{align*}
+    using \autoref{thm:markov-chain-characterisation} again, note that the definition of a Markov chain is applied in the third equal sign, more rigorously by summing through the possibilities of the intermediate times between \(i_1, \ldots, i_k\). This finishes the proof.
+\end{proof}
+
+\begin{theorem}[Probability and Matrix Powers]
+    If \(X \sim \Markov\pqty{\lambda, P}\), then
+    \begin{enumerate}[label=(\roman*)]
+        \item The probability of being at \(x\) at time \(n\) is given by
+        \[
+            \Prob\pqty{X_n = x} = \pqty{\lambda P^n}_x.
+        \]
+        \item The probability of being at \(y\) at time \(m + n\), given that we are at \(x\) at time \(m\) is given by
+        \[
+            \Prob\pqty{\Conditional{X_{m + n} = y}{X_m = x}} = \pqty{P^n}_{xy}.
+        \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    For the first property, note that
+    \begin{align*}
+        \Prob\pqty{X_n = x} &= \sum_{x_0, \ldots, x_{n - 1} \in I} \Prob\pqty{X_0 = x_0, \ldots, X_{n - 1} = x_{n - 1}, X_n = x} \\
+        &= \sum_{x_0, \ldots, x_{n - 1} \in I} \lambda_{x_0} P_{x_0 x_1} P_{x_1 x_2} \cdots P_{x_{n - 1} x} \\
+        &= \pqty{\lambda P^n}_x
+    \end{align*}
+    by definition of matrix multiplication.
+
+
+    For the second property, by \autoref{thm:markov-property}, note that
+    \begin{align*}
+        \Prob\pqty{\Conditional{X_{m + n} = y}{X_m = x}} &= \pqty{\delta_x P^n}_y \\
+        &= \pqty{P^n}_{xy}.
+    \end{align*}
+    by definition of matrix multiplication.
+\end{proof}
+
+\begin{notation}
+    We denote
+    \[
+    \Prob\pqty{\Conditional{X_{m + n} = y}{X_m = x}} = \Prob\pqty{\Conditional{X_n = y}{X_0 = x}} = P_{xy}\pqty{n} = \pqty{P^n}_{xy}.
+    \]
+\end{notation}
+
+\begin{example}
+    Recall the binary Markov chain with transition matrix
+    \[
+        P = \pmqty{1 - \alpha & \alpha \\ \beta & 1 - \beta}.
+    \]
+
+    Then
+    \begin{align*}
+        P_{00} \pqty{n + 1} &= P_{00} \pqty{n} \pqty{1 - \alpha} + P_{01} \pqty{n} \beta \\
+        &= \beta + \pqty{1 - \alpha - \beta} P_{00} \pqty{n}.
+    \end{align*}
+
+    Note that \(P_{00} \pqty{0} = 1\), and hence solving gives
+    \[
+        P_{00} \pqty{n} = \begin{cases}
+            \frac{\beta}{\alpha + \beta} + \frac{\alpha}{\alpha + \beta} \pqty{1 - \alpha - \beta}^n, & \alpha + \beta > 0, \\
+            1, & \alpha = \beta = 0
+        \end{cases}
+    \]
+    which converges geometrically fast to \(\flatfrac{\beta}{\alpha + \beta}\) for \(\alpha + \beta > 0\) as \(n \to \infty\).
+\end{example}
