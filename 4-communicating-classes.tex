@@ -1,0 +1,107 @@
+\section{Communicating Classes}
+
+There are two types of weird Markov chains that we want to avoid. The first one is that when it could essentially be split into many separate Markov chains: when you start in one part of it, you always stay in the same part. \autoref{fig:markov-chain-bad-example-1} shows an example of this, even if the blue edge is included.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{fig/markov-chain-bad-example-1.png}
+    \caption{First Type of ``Weird'' Markov Chains}
+    \label{fig:markov-chain-bad-example-1}%
+\end{figure}
+
+The second type of weird Markov chains is that certain states have a ``parity'' property. For example, in \autoref{fig:markov-chain-bad-example-2}, if you start at the top-left state, you can only reach the bottom-right state in an even number of steps, and vice versa.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{fig/markov-chain-bad-example-2.png}
+    \caption{Second Type of ``Weird'' Markov Chains}
+    \label{fig:markov-chain-bad-example-2}%
+\end{figure}
+
+\begin{notation}
+    We denote
+    \begin{align*}
+        \Prob_x \pqty{\cdot} = \Prob\pqty{\Conditional{\cdot}{X_0 = x}}, \\
+        \Expt_x \pqty{\cdot} = \Expt\pqty{\Conditional{\cdot}{X_0 = x}}.
+    \end{align*}    
+\end{notation}
+
+\begin{definition}[Leading and Communicating States]
+    We say that a state \(x\) \term{leads to} a state \(y\), denoted \(x \to y\), if
+    \[
+        \Prob_x \pqty{X_n = y \text{ for some } n \geq 0} > 0.
+    \]
+
+    We say that two states \(x\) and \(y\) \term{communicate}, denoted \(x \leftrightarrow y\), if \(x \to y\) and \(y \to x\).
+\end{definition}
+
+\begin{theorem}[Characterization of Leading States]
+    The following are equivalent.
+    
+    \begin{enumerate}[label=(\roman*)]
+        \item \(x \to y\).
+        \item There is a sequence of states \(x_0 = x, x_1, x_2, \ldots, x_n = y\) such that \(P_{x_i x_{i + 1}} > 0\) for all \(i = 0, 1, \ldots, n - 1\).
+        \item \(\Prob_x \pqty{X_n = y} > 0\) for some \(n \geq 0\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    We note
+    \[
+        \Bqty{X_n = y \text{ for some } n \geq 0} = \bigcup_{n \geq 0} \Bqty{X_n = y}.
+    \]
+
+    This immediately proves the equivalence of (i) and (iii).
+
+    To see that (ii) and (iii) are equivalent, note that
+    \begin{align*}
+        \Prob+x \pqty{X_n = y} &= \Prob\pqty{\Conditional{X_n = y}{X_0 = x}} \\
+        &= \sum_{x_1, x_2, \ldots, x_{n - 1}} \Prob\pqty{\Conditional{X_n = y, X_{n - 1} = x_{n - 1}, \ldots, X_1 = x_1}{X_0 = x}} \\
+        &= \sum_{x_1, x_2, \ldots, x_{n - 1}} P_{x x_1} P_{x_1 x_2} \cdots P_{x_{n - 1} y}.
+    \end{align*}
+
+    So the left-hand side is positive, which is equivalent to the existence of a sequence of states \(x_0 = x, x_1, x_2, \ldots, x_n = y\) such that \(P_{x_i x_{i + 1}} > 0\) for all \(i = 0, 1, \ldots, n - 1\).
+\end{proof}
+
+\begin{corollary}[Communication is an Equivalence Relation]
+    Communication is an equvialence relation.
+\end{corollary}
+
+\begin{proof}
+    First, note \(p_{xx} \pqty{0} = 1\) so \(x \leftrightarrow x\).
+
+    If \(x \leftrightarrow y\) and \(y \leftrightarrow z\), then by previously, taking the paths in the previous theorem, we have \(x \leftrightarrow z\).
+
+    Finally, if \(x \leftrightarrow y\), then by definition \(y \leftrightarrow x\).
+\end{proof}
+
+\begin{definition}[Communicating Classes, Closeness, Irreducible, Absorbing States]
+    \begin{itemize}
+        \item The equivalence classes induced on \(I\) by the relation \(\leftrightarrow\) are called \term{communicating classes}.
+
+        \item A class \(C \subseteq I\) is \term{closed}, if for any \(x \in C\) and \(y \in I\), that \(x \to y\) implies \(y \in C\).
+
+        \item A transition matrix \(P\) of a Markov chain \(X\) is called a \term{irreducible} if there is only one communicating class.
+        
+        \item A state \(x \in I\) is \term{absorbing} if \(\Bqty{x}\) is a closed class, i.e., \(p_{xx} = 1\pqty{n} = 1\) for all \(n \geq 0\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Hitting Time, Hitting Probability]
+    Let \(A \subseteq I\). The \term{first hitting time} of \(A\), \(T_A\), is given by
+    \[
+        T_A = \inf\Bqty{n \geq 0 : X_n \in A},
+    \]
+    recalling \(\inf \emptyset = \plusinfty\).
+
+    The \term{hitting probabilities} of \(A\) is given by \(\functiondomain{h^A}{I}{\ccintv{0}{1}}\) with
+    \[
+        h_i^A = \Prob_i \pqty{T_A < \infty}
+    \]
+    for \(i \in I\).
+
+    The \term{mean hitting time} is \(\functiondomain{k^A}{I}{\ccintv{0}{\plusinfty}}\), given by
+    \[
+        k_i^A = \Expt_i \pqty{T_A} = \sum_{n \geq 0} n \cdot \Prob_i \pqty{T_A = n} + \infty \cdot \Prob_i \pqty{T_A = \plusinfty}.
+    \]
+\end{definition}
