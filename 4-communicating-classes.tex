@@ -27,19 +27,19 @@ The second type of weird Markov chains is that certain states have a ``parity'' 
 \end{notation}
 
 \begin{definition}[Leading and Communicating States]
-    We say that a state \(x\) \term{leads to} a state \(y\), denoted \(x \to y\), if
+    We say that a state \(x\) \term{leads to} a state \(y\), denoted \(x \leadto y\), if
     \[
         \Prob_x \pqty{X_n = y \text{ for some } n \geq 0} > 0.
     \]
 
-    We say that two states \(x\) and \(y\) \term{communicate}, denoted \(x \leftrightarrow y\), if \(x \to y\) and \(y \to x\).
+    We say that two states \(x\) and \(y\) \term{communicate}, denoted \(x \communicatewith y\), if \(x \leadto y\) and \(y \leadto x\).
 \end{definition}
 
 \begin{theorem}[Characterization of Leading States]
     The following are equivalent.
     
     \begin{enumerate}[label=(\roman*)]
-        \item \(x \to y\).
+        \item \(x \leadto y\).
         \item There is a sequence of states \(x_0 = x, x_1, x_2, \ldots, x_n = y\) such that \(P_{x_i x_{i + 1}} > 0\) for all \(i = 0, 1, \ldots, n - 1\).
         \item \(\Prob_x \pqty{X_n = y} > 0\) for some \(n \geq 0\).
     \end{enumerate}
@@ -68,18 +68,18 @@ The second type of weird Markov chains is that certain states have a ``parity'' 
 \end{corollary}
 
 \begin{proof}
-    First, note \(p_{xx} \pqty{0} = 1\) so \(x \leftrightarrow x\).
+    First, note \(p_{xx} \pqty{0} = 1\) so \(x \communicatewith x\).
 
-    If \(x \leftrightarrow y\) and \(y \leftrightarrow z\), then by previously, taking the paths in the previous theorem, we have \(x \leftrightarrow z\).
+    If \(x \communicatewith y\) and \(y \communicatewith z\), then by previously, taking the paths in the previous theorem, we have \(x \communicatewith z\).
 
-    Finally, if \(x \leftrightarrow y\), then by definition \(y \leftrightarrow x\).
+    Finally, if \(x \communicatewith y\), then by definition \(y \communicatewith x\).
 \end{proof}
 
 \begin{definition}[Communicating Classes, Closeness, Irreducible, Absorbing States]
     \begin{itemize}
-        \item The equivalence classes induced on \(I\) by the relation \(\leftrightarrow\) are called \term{communicating classes}.
+        \item The equivalence classes induced on \(I\) by the relation \(\communicatewith\) are called \term{communicating classes}.
 
-        \item A class \(C \subseteq I\) is \term{closed}, if for any \(x \in C\) and \(y \in I\), that \(x \to y\) implies \(y \in C\).
+        \item A class \(C \subseteq I\) is \term{closed}, if for any \(x \in C\) and \(y \in I\), that \(x \leadto y\) implies \(y \in C\).
 
         \item A transition matrix \(P\) of a Markov chain \(X\) is called a \term{irreducible} if there is only one communicating class.
         
