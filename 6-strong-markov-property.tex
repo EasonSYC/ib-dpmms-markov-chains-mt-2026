@@ -1,0 +1,23 @@
+\section{Strong Markov Property}
+
+\begin{definition}[Stopping Time]
+    A random variable \(T\) with values on \(\NN_0 \cup \Bqty{\infty}\) is a \term{stopping time} with respect to a random process \(\pqty{X_n}_{n \geq 0}\) , if the event \(\Bqty{T = n}\) only depends on \(\pqty{X_0, \ldots, X_n}\), for all \(n \geq 0\).
+\end{definition}
+
+\begin{example}[First Hitting Times and Last Exit Time]
+    The first hitting times \emph{are} stopping times.
+
+    Recall from definition that \(T_A = \inf\set{n \geq 0}{X_n \in A}\), so
+    \[
+        \Bqty{T_A = n} = \Bqty{X_0 \notin A, \ldots, X_{n - 1} \notin A, X_n \in A}
+    \]
+    but the \term{last exit time} \(S_A = \sup \Bqty{n \geq 0}{X_n \in A}\) is \emph{not} a stopping time.
+\end{example}
+
+\begin{theorem}[Strong Markov Property]
+    Suppose \(X = \pqty{X_n}_{n \geq 0}\) be a Markov chain with \(X \sim \Markov\pqty{\lambda, P}\), and let \(T\) be a stopping time, with \(i \in I\). Then, conditional on the event
+    \[
+        \Bqty{T < \plusinfty} \cap \Bqty{X_T = i},
+    \]
+    the process \(\pqty{X_{T + n}} \geq 0 \sim \Markov\pqty{\kronecker_i, P}\), and it is independent of \(\pqty{X_0, X_1. \ldots, X_T}\).
+\end{theorem}
