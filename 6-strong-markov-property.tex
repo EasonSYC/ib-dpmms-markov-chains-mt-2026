@@ -17,7 +17,46 @@
 \begin{theorem}[Strong Markov Property]
     Suppose \(X = \pqty{X_n}_{n \geq 0}\) be a Markov chain with \(X \sim \Markov\pqty{\lambda, P}\), and let \(T\) be a stopping time, with \(i \in I\). Then, conditional on the event
     \[
-        \Bqty{T < \plusinfty} \cap \Bqty{X_T = i},
+        \Bqty{T < \infty} \cap \Bqty{X_T = i},
     \]
-    the process \(\pqty{X_{T + n}} \geq 0 \sim \Markov\pqty{\kronecker_i, P}\), and it is independent of \(\pqty{X_0, X_1. \ldots, X_T}\).
+    the process \(\pqty{X_{T + n}}_{n \geq 0} \sim \Markov\pqty{\kronecker_i, P}\), and it is independent of \(\pqty{X_0, X_1. \ldots, X_T}\).
 \end{theorem}
+
+\begin{proof}
+    We need to show that, for any \(x_0, x_1, \ldots, x_n \in I\) and any finite-length path \(w \in \bigcup_{k \geq 0} I^k\), we have
+    \begin{align*}
+        &\phantom{=} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_T} = w, X_T = x_0, X_{T + 1} = x_1, \ldots, X_{T + n} = x_n}{T < \infty, X_T = i}} \\
+        &= \indicator\Bqty{x_0 = i} P\pqty{x_0, x_1} \cdots P\pqty{x_{n - 1}, x_n} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_T} = w}{T < \infty, X_T = i}}.
+    \end{align*}
+
+    For a fixed \(w \in I^{k + 1}\) and fixed \(x_0, x_1, \ldots, x_n \in I\), we have
+    \begin{align*}
+        &\phantom{=} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_k} = w, X_T = x_0, \ldots, X_{T + n} = x_n}{T < \infty, X_T = i}} \\
+        &= \frac{\Prob\pqty{\pqty{X_0, \ldots, X_k} = w, X_T = x_0, \ldots, X_{T + n} = x_n, T = k, X_k = i}}{\Prob\pqty{T < \infty, X_T = i}}.
+    \end{align*}
+    and for the numerator, we notice that it is equal to
+    \begin{align*}
+        &\phantom{=} \Prob\pqty{\pqty{X_0, \ldots, X_k} = w, X_k = i, T = k} \cdot \Prob\pqty{\Conditional{X_{k + 1} = x_1, \ldots, X_{k + n} = x_n}{\pqty{X_0, \ldots, X_k} = w, X_k = i, T = k}} \\
+        &= \Prob\pqty{\Conditional{X_k = x_0, \ldots, X_{k + n} = x_n}{X_k = i}} \cdot \Prob\pqty{\pqty{X_0, \ldots, X_k} = w, X_k = i, T = k} \\
+        &= \indicator \Bqty{x_0 = i} P\pqty{x_0, x_1} \cdots P\pqty{x_{n - 1}, x_n} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_T} = w}{T < \infty, X_T = i}}
+    \end{align*}
+    as desired.
+\end{proof}
+
+\begin{example}[Simple Symmetric Random Walk on \(\NN_0\)]
+    Recall the setup in \autoref{ex:random-walk-hitting-probability}. We now consider the case where \(p = q\). From previously, we have
+    \[
+        h_1^A = \frac{1}{2} + \frac{1}{2} h_2^A.
+    \]
+
+    Starting at \(2\), let \(\tilde{T}_0\) denote the first time to visit \(0\) under \(\Prob_1\), independent of \(T_1\). Then, by the strong Markov property, conditional on \(\Bqty{T_1 < \infty}\), under \(\Prob_2\), we have \(T_0 = T_1 + \tilde{T}_0\), and hence
+    \begin{align*}
+        h_2^A &= \Prob_2 \pqty{T_0 < \infty} \\
+        &= \Prob_2 \pqty{T_0 < \infty, T_1 < \infty} \\
+        &= \Prob_0 \pqty{T_1 < \infty} \Prob\pqty{\Conditional{T_1 + \tilde{T}_0 < \infty}{T_1 < \infty}} \\
+        &= \Prob_1 \pqty{T_0 < \infty} \Prob_1 \pqty{T_0 < \infty} \\
+        &= h_1^A \cdot h_1^A = \pqty{h_1^A}^2.
+    \end{align*}
+
+    So \(h_1^A = \frac{1}{2} + \frac{1}{2} \pqty{h_1^A}^2\), which gives \(h_1^A = h_2^A = 1\).
+\end{example}

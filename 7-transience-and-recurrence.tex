@@ -1,0 +1,100 @@
+\section{Transience and Recurrence}
+
+\begin{definition}[Transience, Recurrence, Return Times, Return Probabilities]
+    Suppose \(X\) is a Markov chain on \(I\) with transition matrix \(P\).
+    \begin{itemize}
+        \item A state \(i \in I\) is \term{recurrent}, if \(\Prob_i \pqty{X_n = i \text{ for infinitely many } n} = 1\).
+        \item The transition matrix \(P\) is \term{recurrent}, if all states are recurrent.
+        \item A state \(i \in I\) is \term{transient}, if \(\Prob_i \pqty{X_n = i \text{ for infinitely many } n} = 0\).
+        \item The transition matrix \(P\) is \term{transient}, if all states are transient.
+        \item Define the \term{return times} to \(i\) as
+        \[
+            T_i^{\pqty{0}} = 0 \qand T_{i}^{\pqty{k + 1}} = \inf \set{n > T_i^{\pqty{k}}}{X_n = i} \qfor k \geq 0
+        \]
+        and the \term{first return time} as \(T_i^{\pqty{1}} = T_i\).
+        \item Define the \term{return probabilities} as \(f_i = \Prob_i \pqty{T_i < \infty}\).
+        \item The \term{total number of visits to \(i\)} is given by \(V_i = \sum_{k = 0}^{\infty} \indicator \Bqty{X_k = i}\).
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}[Return Probabilities and Total Number of Visits]
+    \label{lem:return-probabilities-and-total-number-of-visits}%
+    For every \(r \geq 0\), \(\Prob_{i} \pqty{V_i > r} = f_i^r\).
+\end{lemma}
+
+\begin{proof}
+    We prove by induction on \(r\). This is obvious for \(r = 0\), since
+    \[
+        \Prob_i \pqty{V_i > 0} = 1 = f_i^0.
+    \]
+
+    Suppose this is true for \(r\). Then we have
+    \begin{align*}
+        \Prob_i \pqty{V_i > r + 1} &= \Prob_i \pqty{V_i > r + 1, V_i > v} \\
+        &= \Prob_i \pqty{V_i > r} \cdot \Prob_i \pqty{\Conditional{V_i > r + 1}{V_i > r}} \\
+        &= f_i^r \Prob_i \pqty{\Conditional{T_i^{\pqty{r + 1}} < \infty}{T_i^{\pqty{r}} < \infty}} \\
+        &= f_i^r \Prob_i \pqty{T_i < \infty} \\
+        &= f_i^{r + 1}.
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[States are eitherRecurrent or Transient]
+    Let \(X\) be a Markov chain on \(I\).
+
+    \begin{enumerate}
+        \item If \(f_i = \Prob_i \pqty{T_i < \infty} = 1\), then \(i\) is recurrent, and
+        \[
+            \sum_{n \geq 0} p_{ii} \pqty{k} = \infty.
+        \]
+
+        \item If \(f_i = \Prob_i \pqty{T_i < \infty} < 1\), then \(i\) is transient, and
+        \[
+            \sum_{n \geq 0} p_{ii} \pqty{k} < \infty.
+        \]
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    First notice that
+    \begin{align*}
+        \Expt_i \pqty{V_i} &= \Expt_i \pqty{\sum_{k = 0}^{\infty} \indicator \Bqty{X_k = i}} \\
+        &= \sum_{k = 0}^{\infty} \Prob_i \pqty{X_k = i} \\
+        &= \sum_{k = 0}^{\infty} p_{ii} \pqty{k}.
+    \end{align*}
+
+    \begin{enumerate}
+        \item If \(f_i = 1\), then \(V_i = \infty\) with probability \(1\), so \(i\) is recurrent, and \(\Expt_i \pqty{V_i} = \infty\), so \(\sum_{n \geq 0} p_{ii} \pqty{k} = \infty\).
+        \item If \(f_i < 1\), then by \autoref{lem:return-probabilities-and-total-number-of-visits}, \(V_i\) is finite with probability \(1\), so \(V_i\) is infinite with probability \(0\), and hence \(i\) is transient, so \(\Expt_i \pqty{V_i} < \infty\), so \(\sum_{n \geq 0} p_{ii} \pqty{k} < \infty\).
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Communicating States Share Recurrence]
+    If \(x \communicatewith y\), then \(x\) is recurrent if and only if \(y\) is recurrent.
+\end{theorem}
+
+\begin{proof}
+    Suppose \(x\) is recurrent. Since \(x \communicatewith y\), there are integers \(k, l\), such that \(p_{xy} \pqty{k} > 0\) and \(p_{yx} \pqty{l} > 0\). Then for any \(n \geq 0\),
+    \begin{align*}
+        \sum_{n \geq 0} p_{yy} \pqty{n} &\geq \sum_{n \geq 0} p_{yy} \pqty{l + n + k} \\
+        &\geq \sum_{n \geq 0} p_{yx} \pqty{l} p_{xx} \pqty{n} p_{xy} \pqty{k} \\
+        &= p_{yx} \pqty{l} p_{xy} \pqty{k} \sum_{n \geq 0} p_{xx} \pqty{n} \\
+        &= \infty.
+    \end{align*}
+    so \(y\) is recurrent.
+\end{proof}
+
+\begin{corollary}[Recurrence is a Class Property]
+    If \(A \subseteq I\) is a communicating class, then either all states in \(A\) are recurrent, or all states in \(A\) are transient.
+\end{corollary}
+
+\begin{theorem}[Recurrent Communicating Classes are Closed]
+    If \(C \subseteq I\) is a recurrent communicating class, then it is closed.
+\end{theorem}
+
+\begin{proof}
+    Suppose it is not closed, and we have some \(x \in C\) recurrent, with \(x \leadto y\) and \(y \notin C\). Then there is \(m\), such that \(p_{xy} \pqty{m} > 0\), so
+    \[
+        \Prob_x \pqty{V_x < \infty} \geq \Prob_X \pqty{X_m = y} > 0
+    \]
+    so \(x\) is transient, giving a contradiction.
+\end{proof}

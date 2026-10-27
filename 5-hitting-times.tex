@@ -9,13 +9,13 @@
 
     The \term{hitting probabilities} of \(A\) is given by \(\functiondomain{h^A}{I}{\ccintv{0}{1}}\) with
     \[
-        h_i^A = \Prob_i \pqty{T_A < \plusinfty}
+        h_i^A = \Prob_i \pqty{T_A < \infty}
     \]
     for \(i \in I\).
 
-    The \term{mean hitting time} is \(\functiondomain{k^A}{I}{\ccintv{0}{\plusinfty}}\), given by
+    The \term{mean hitting time} is \(\functiondomain{k^A}{I}{\ccintv{0}{\infty}}\), given by
     \[
-        k_i^A = \Expt_i \pqty{T_A} = \sum_{n \geq 0} n \cdot \Prob_i \pqty{T_A = n} + \infty \cdot \Prob_i \pqty{T_A = \plusinfty}.
+        k_i^A = \Expt_i \pqty{T_A} = \sum_{n \geq 0} n \cdot \Prob_i \pqty{T_A = n} + \infty \cdot \Prob_i \pqty{T_A = \infty}.
     \]
 \end{definition}
 
@@ -35,7 +35,7 @@
 \begin{proof}
     If \(i \in A\), then \(h_i^A = 1\) by definition. If \(i \notin A\), then
     \begin{align*}
-        h_i^A &= \Prob_i \pqty{T_A < \plusinfty} \\
+        h_i^A &= \Prob_i \pqty{T_A < \infty} \\
         &= \Prob_i \pqty{\Bqty{T_A = 0} \cup \bigcup_{n \geq 1} \Bqty{T_A = n}} \\
         &= \sum_{n \geq 1} \Prob_i \pqty{T_A = n} \\
         &= \Prob\pqty{\Conditional{X_1 \in A}{X_0 = i}} + \sum_{n \geq 2} \Prob \pqty{\Conditional{X_1 \notin A, \ldots, X_{n-1} \notin A, X_n \in A}{X_0 = i}} \\
@@ -47,7 +47,7 @@
     \begin{align*}
         h_i^A &= \sum_{j \in I} P\pqty{i, j} \bqty{\Prob_j \pqty{X_0 \in A} + \sum_{n \geq 1} \Prob_j \pqty{X_0 \notin A, \ldots, X_{n-1} \notin A, X_n \in A}} \\
         &= \sum_{j \in I} P\pqty{i, j} \bqty{\Prob_j \pqty{T_A = 0} + \sum_{n \geq 1} \Prob_j\pqty{T_A = n}} \\
-        &= \sum_{j \in I} P\pqty{i, j} \Prob_j \pqty{T_A < \plusinfty} \\
+        &= \sum_{j \in I} P\pqty{i, j} \Prob_j \pqty{T_A < \infty} \\
         &= \sum_{j \in I} P\pqty{i, j} h_j^A.
     \end{align*}
 
@@ -112,6 +112,7 @@
 \end{example}
 
 \begin{example}[Random Walk on Positive Integers]
+    \label{ex:random-walk-hitting-probability}%
     Consider a random walk on \(\NN_0\) with reflection at the origin. Suppose \(X\) is a Markov chain on \(I = \NN_0\), with
     \[
         P\pqty{i, j} = \begin{cases}
