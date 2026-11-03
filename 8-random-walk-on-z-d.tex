@@ -1,0 +1,108 @@
+\section{Random Walk on \(\ZZ^d\)}
+
+\begin{definition}[Simply Symmetric Random Walk on \(\ZZ^d\)]
+    A simply symmetric random walk (SSRW) on \(\ZZ^d\) is a Markov chain \(X = \pqty{X_n}_{n \geq 0}\) with state space \(\ZZ^d\) and transition probabilities
+    \[
+        P\pqty{x, x + e_i} = P\pqty{x, x - e_i} = \frac{1}{2d}
+    \]
+    for \(i = 1, 2, \ldots, d\) where \(e_i\) is the \(i\)-th standard basis vector in \(\RR^d\).
+\end{definition}
+
+\begin{theorem}[Recurrence and Transience of SSRW on \(\ZZ^d\)]
+    \label{thm:ssrw-recurrence-transience}%
+    The simply symmetric random walk on \(\ZZ^d\) is recurrent for \(d = 1, 2\) and transient for \(d \geq 3\).
+\end{theorem}
+
+\paragraph{Symmetric Random Walk on \(\ZZ\)} We first consider \(d = 1\). We show that \(0\) is recurrent, i.e.,
+\[
+    \sum_{n = 0}^{\infty} p_{00}\pqty{n} = \infty.
+\]
+
+Note that \(p_{00}\pqty{n} > 0\) if and only if \(n\) is even, and for \(p_{00} \pqty{2n}\) to be positive, we have to take \(n\) steps to the right and \(n\) steps to the left, which can be done in \(\binom{2n}{n}\) ways, and hence
+\[
+    p_{00}\pqty{2n} = \frac{\binom{2n}{n}}{2^{2n}}.
+\]
+
+Using Stirling's formula \(n! \sim \sqrt{2 \pi n} \pqty{\flatfrac{n}{e}}^n\), we have
+\[
+    p_{00} \pqty{2n} \sim \frac{1}{\sqrt{\pi n}},
+\]
+and for some \(N_0\), we have for all \(n \geq N_0\), we have
+\[
+    p_{00} \pqty{2n} \geq \frac{1}{2\sqrt{\pi n}},
+\]
+and hence
+\[
+    \sum_{n = 0}^{\infty} p_{00}\pqty{n} = \sum_{n = 0}^{\infty} p_{00} \pqty{2n} \geq \sum_{n = N_0}^{\infty} \frac{1}{2\sqrt{\pi n}} = \infty,
+\]
+so \(0\) is recurrent. Since this process is irreducible, all states are recurrent.
+
+\paragraph{Asymmetric Random Walk on \(\ZZ\)} Consider an asymmetric random walk on \(\ZZ\) with transition probabilities
+\[
+    p\pqty{x, x + 1} = p \qand p \pqty{x, x - 1} = 1 - p
+\]
+for all \(x \in \ZZ\), for some \(p \in \oointv{0}{1}\) and \(p \neq \flatfrac{1}{2}\). Then we have
+\[
+    p_{00}\pqty{2n} = \binom{2n}{n} p^n (1 - p)^n \sim \frac{1}{\sqrt{\pi n}} \pqty{4 p (1 - p)}^n,
+\]
+but now \(4 p \pqty{1 - p} < 1\), so this is summable, and
+\[
+    \sum_{n \geq 0} p_{00}\pqty{n} < \infty,
+\] 
+so \(0\) is transient, and hence all states are transient.
+
+\paragraph{Symmetric Random Walk on \(\ZZ^2\)} We now consider \(d = 2\). Let \(\pqty{X_n}_{n \geq 0}\) be the SSRW on \(\ZZ^2\), with \(X_0 = 0\).
+        
+Let \(\functiondomain{f}{\ZZ^2}{\RR^2}\) be the projection map onto the lines \(y = x\) and \(y = -x\), i.e.,
+\[
+    f\pqty{x, y} = \pqty{\frac{x + y}{\sqrt{2}}, \frac{x - y}{\sqrt{2}}}.
+\]
+
+Write \(\pqty{X_n^+, X_n^-} = f\pqty{X_n}\). We claim the following.
+
+\begin{lemma}[Decomposition of SSRW on \(\ZZ^2\)]
+    \label{lem:ssrw-decomposition}%
+    The processes \(\pqty{X_n^+}_{n \geq 0}\) and \(\pqty{X_n^-}_{n \geq 0}\) are independent SSRWs on \(\flatfrac{\ZZ}{\sqrt{2}}\).
+\end{lemma}
+
+\begin{proof}[\proofname\ of \autoref{lem:ssrw-decomposition}]
+    We can write
+    \[
+        X_N = \sum_{i = 1}^{n} \xi_i,
+    \]
+    where the sequence \(\pqty{\xi_i}\) consists of independent and identically distributed copies of
+    \[
+        \xi_i = \pqty{\xi_i^1, \xi_i^2} \in \Bqty{\pqty{1, 0}, \pqty{-1, 0}, \pqty{0, 1}, \pqty{0, -1}}
+    \]
+    each with probability \(\flatfrac{1}{4}\). Then we have
+    \[
+        X_n^+ = \sum_{i = 1}^{n} \frac{\xi_i^1 + \xi_i^2}{\sqrt{2}}, \quad X_n^- = \sum_{i = 1}^{n} \frac{\xi_i^1 - \xi_i^2}{\sqrt{2}}.
+    \]
+
+    Then each of them if a SSRW on \(\flatfrac{\ZZ}{\sqrt{2}}\). To check they are also independent, it suffices to check each of the step is independent, i.e., that
+    \[
+        \xi_i^1 + \xi_i^2 \qand \xi_i^1 - \xi_i^2
+    \]
+    are independent. This can be checked by hand by checking all possible cases, for example,
+    \[
+        \Prob\pqty{\xi_i^1 + \xi_i^2 = 1, \xi_i^1 - \xi_i^2 = -1} = \Prob\pqty{\xi_i^1 = 0, \xi_i^2 = 1} = \frac{1}{4}
+    \]
+    and
+    \[
+       \Prob\pqty{\xi_i^1 + \xi_i^2 = 1} \cdot \Prob\pqty{\xi_i^1 - \xi_i^2 = -1} = \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}.
+    \]
+\end{proof}
+
+Continuing with \(n = 2\), arguing as before, we have \(p\pqty{n} > 0\) if and only if \(n\) is even, and
+\[
+    \Prob_{00} \pqty{2n} = \Prob_0 \pqty{X_{2n}^+ = 0, X_{2n}^- = 0} = \Prob_0 \pqty{X_{2n}^+ = 0} \cdot \Prob_0 \pqty{X_{2n}^- = 0} = p_{00}\pqty{2n}^2,
+\]
+and by previously, we have
+\[
+    p_{00} \pqty{2n} \sim \pqty{\frac{1}{\sqrt{\pi n}}}^2 = \frac{1}{\pi n}.
+\]
+
+Therefore, we have
+\[
+    \sum_{n \geq 0} p_{00}\pqty{n} = \sum_{n \geq 0} p_{00}\pqty{2n} \geq \sum_{n \geq N_0} \frac{1}{2 \pi n} = \infty,
+\]

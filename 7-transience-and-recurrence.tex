@@ -84,6 +84,7 @@
 \end{proof}
 
 \begin{corollary}[Recurrence is a Class Property]
+    \label{cor:recurrence-is-a-class-property}%
     If \(A \subseteq I\) is a communicating class, then either all states in \(A\) are recurrent, or all states in \(A\) are transient.
 \end{corollary}
 
@@ -97,4 +98,57 @@
         \Prob_x \pqty{V_x < \infty} \geq \Prob_x \pqty{X_m = y} > 0
     \]
     so \(x\) is transient, giving a contradiction.
+\end{proof}
+
+\begin{theorem}[Finite Closed Communicating Classes are Recurrent]
+    Suppose \(C \subseteq I\) is a closed communicating class. If \(C\) is finite, then \(C\) is recurrent.
+\end{theorem}
+
+\begin{proof}
+    Let \(x \in C\). Since \(C\) is closed, we have some \(y \in C\), such that
+    \[
+        \Prob_x \pqty{X_n = y \text{ for infinitely many } n} > 0.
+    \]
+
+    Since \(C\) is a communicating class, \(x \communicatewith y\), so there is \(m \geq 1\) such that \(p_{yx} \pqty{m} > 0\). Then
+    \begin{align*}
+        \Prob_y \pqty{X_n = y \text{ for infinitely many } n} &\geq \Prob_y \pqty{X_m = x, X_{n} = y \text{ for infinitely many } n \geq m} \\
+        &= p_{yx} \pqty{m} \Prob_y \pqty{\Conditional{X_n = y \text{ for infinitely many } n \geq m}{X_m = x}} \\
+        &= p_{yx} \pqty{m} \Prob_x \pqty{X_n = y \text{ for infinitely many } n} \\
+        &> 0.
+    \end{align*}
+
+    Hence, \(y\) is recurrent, and by \autoref{cor:recurrence-is-a-class-property} (Recurrence is a Class Property), \(C\) is recurrent.
+\end{proof}
+
+\begin{theorem}
+    If \(A \subseteq I\) is a recurrent class, then for any \(x, y \in A\), we have
+    \[
+        \Prob_x \pqty{T_y < \infty} = 1.
+    \]
+\end{theorem}
+
+\begin{proof}
+    Chose \(x, y\) and pick \(m \geq 1\) such that \(p_{yx} \pqty{m} > 0\). Then by recurrence,
+    \begin{align*}
+        1 &= \Prob_y \pqty{X_n = y \text{ for infinitely many } n} \\
+        &= \sum_{z \in I} \Prob_y \pqty{X_m = z, X_n = y \text{ for infinitely many } n > m} \\
+        &= \sum_{z \in I} p_{yz} \pqty{m} \Prob_z \pqty{\Conditional{X_n = y \text{ for infinitely many } n > m}{X_m = z}}.
+    \end{align*}
+
+    Note we have
+    \begin{align*}
+        &\phantom{=} \Prob_z \pqty{\Conditional{X_n = y \text{ for infinitely many } n > m}{X_m = z}} \\
+        &= \Prob_z \pqty{X_n = y \text{ for infinitely many } n > m} \\
+        &= \Prob_z \pqty{X_n = y \text{ for infinitely many } n, T_y < \infty} \\
+        &= \Prob_z \pqty{T < \infty} \Prob_y \pqty{X_n = y \text{ for infinitely many } n} && \text{by the Strong Markov Property} \\
+        &= \Prob_z \pqty{T < \infty}.
+    \end{align*}
+
+    Hence,
+    \[
+        \sum_{z \in I} p_{yz} \pqty{m} \Prob_z \pqty{T < \infty} = 1.
+    \]
+
+    But note \(\sum_{z \in I} p_{yz} \pqty{m} = 1\), and \(p_{yx} \pqty{m} > 0\), so we must have \(\Prob_x \pqty{T < \infty} = 1\).
 \end{proof}
