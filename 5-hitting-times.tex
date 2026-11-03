@@ -3,9 +3,9 @@
 \begin{definition}[Hitting Time, Hitting Probability]
     Let \(A \subseteq I\). The \term{first hitting time} of \(A\), \(T_A\), is given by
     \[
-        T_A = \inf\Bqty{n \geq 0 : X_n \in A},
+        T_A = \inf\set{n \geq 0}{X_n \in A},
     \]
-    recalling \(\inf \emptyset = \plusinfty\).
+    recalling \(\inf \emptyset = \infty\).
 
     The \term{hitting probabilities} of \(A\) is given by \(\functiondomain{h^A}{I}{\ccintv{0}{1}}\) with
     \[
@@ -198,12 +198,12 @@
     and denote this infinite sum as \(S\). So the minimality condition tells us that \(h_1^A = 1 - \flatfrac{1}{S}\), so \(u_1 = - \frac{1}{S}\).
 
     \begin{itemize}
-        \item If \(S < \plusinfty\) is finite, then \(h_0^A = 1\) with \(h_1^A = 1 - \flatfrac{1}{S}\), with
+        \item If \(S < \infty\) is finite, then \(h_0^A = 1\) with \(h_1^A = 1 - \flatfrac{1}{S}\), with
         \[
             h_i^A = \frac{\sum_{j \geq i} \gamma_j}{\sum_{j \geq 0} \gamma_j}
         \]
         for all \(i \geq 1\).
-        \item IF \(S = \plusinfty\) diverges, then \(h_0^A = 1\), \(h_1^A = 1\) and \(h_i^A = 1\) for all \(i\).
+        \item IF \(S = \infty\) diverges, then \(h_0^A = 1\), \(h_1^A = 1\) and \(h_i^A = 1\) for all \(i\).
     \end{itemize}
 \end{example}
 
