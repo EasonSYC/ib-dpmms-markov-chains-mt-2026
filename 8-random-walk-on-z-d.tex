@@ -106,3 +106,33 @@ Therefore, we have
 \[
     \sum_{n \geq 0} p_{00}\pqty{n} = \sum_{n \geq 0} p_{00}\pqty{2n} \geq \sum_{n \geq N_0} \frac{1}{2 \pi n} = \infty,
 \]
+
+\paragraph{Symmetric Random Walk on \(\ZZ^3\)} We now consider \(d \geq 3\). Let \(\pqty{X_n}_{n \geq 0}\) be the SSRW on \(\ZZ^d\), with \(X_0 = 0\). As before, note that \(p_{00}\pqty{n} > 0\) if and only if \(n\) is even. In \(2n\) steps, being back at \(0\) having started at \(0\) means that we took \(i\) steps in the \(+e_1\) direction, \(i\) steps in the \(-e_1\) direction, \(j\) steps in the \(+e_2\) direction, \(j\) steps in the \(-e_2\) direction, and \(k\) steps in the \(+e_3\) direction, \(k\) steps in the \(-e_3\) direction, and so on, for some non-negative integers \(i, j, k, \ldots\) such that \(i + j + k = n\). Therefore, we have
+\begin{align*}
+    p_{00} \pqty{2n} &= \sum_{\substack{i + j + k = n}} \binom{2n}{i, i, j, j, k, k} \pqty{\frac{1}{6}}^{2n} \\
+    &= \sum_{i + j + k = n} \binom{2n}{n} \binom{n}{i, j, k}^2 \pqty{\frac{1}{2}}^{2n} \pqty{\frac{1}{3}}^{2n} \\
+\end{align*}
+
+Suppose \(n = 3m\). Then simple calculation will show that
+\[
+    \binom{n}{i, j, k} \leq \binom{n}{m, m, m},
+\]
+and hence
+\[
+    p_{00} \pqty{n} \leq \binom{2n}{n} \binom{n}{m, m, m} \pqty{\frac{1}{2}}^{2n} \pqty{\frac{1}{3}}^{n} \sum_{i + j + k = n} \binom{n}{i, j, k} \pqty{\frac{1}{3}}^{n},
+\]
+but not that the sum is \(1\), since this is the multinomial expansion of \(\pqty{\frac{1}{3} + \frac{1}{3} + \frac{1}{3}}^n\). By Stirling approximation, the term before the sum is asymptotic to \(\flatfrac{c}{n^{\flatfrac{3}{2}}}\) for some constant \(c > 0\), and hence
+\[
+    \sum_{m \geq 0} p_{00}\pqty{6m} < \infty,
+\]
+
+But we see we also have the relations
+\begin{align*}
+    p_{00} \pqty{6m} &\geq \pqty{\frac{1}{6}}^2 p_{00} \pqty{6m - 2} \\
+    p_{00} \pqty{6m} &\geq \pqty{\frac{1}{6}}^4 p_{00} \pqty{6m - 4},
+\end{align*}
+so we have
+\[
+    \sum_{n \geq 0} p_{00} \pqty{2n} < \infty,
+\]
+and therefore, \(0\) is transient, and hence \(X\) is transient.

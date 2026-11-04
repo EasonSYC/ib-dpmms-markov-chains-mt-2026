@@ -1,0 +1,96 @@
+\section{Invariant Distributions}
+
+Our question in this chapter is how does the probabilities \(\Prob\pqty{X_n = x}\) or \(\Prob_x \pqty{X_n = y}\) behave as \(n \to \infty\)?
+
+Say \(\Prob\pqty{X_n = j} \to \pi_j\) as \(n \to \infty\), for some probability distribution \(\pqty{\pi_j}_{j \in I}\). Then we expect that if \(X_n \sim \pi\), then so does \(X_{n + 1} \sim \pi\), i.e.,
+\[
+    \pi_j = \Prob\pqty{X_{n + 1} = j} = \sum_{i \in I} \Prob\pqty{X_n = i} \Prob\pqty{\Conditional{X_{n + 1} = j}{X_n = i}} = \sum_{i \in I} \pi_i P_{ij},
+\]
+i.e., taking \(\pi\) as a row vector,
+\[
+    \pi = \pi P
+\]
+
+\begin{definition}[Measure, Probability Distribution, Invariant Distribution]
+    \begin{itemize}
+        \item A \term{measure} \(\lambda\) on \(I\) is a vector \(\lambda = \pqty{\lambda_i}_{i \in I}\) with non-negative entries, i.e., \(\lambda_i \ge 0\) for all \(i \in I\).
+        \item A measure \(\lambda\) is a \term{probability distribution} if \(\sum_{i \in I} \lambda_i = 1\).
+        \item A measure (or \term{probability distribution}) \(\lambda\) is \term{invariant} or \term{stationary} with respect to a transition matrix \(P\) if \(\lambda P = \lambda\).
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}[Invariance of Distribution]
+    If \(\pi\) is invariant for \(X\), and \(X_0 \sim \pi\), then \(X_n \sim \pi\) for all \(n \geq 0\).
+\end{theorem}
+
+\begin{proof}
+    We show by induction. This is obvious for \(n = 0\). Now, suppose \(X_N \sim \pi\), then
+    \begin{align*}
+        \Prob\pqty{X_{n + 1} = j} &= \sum_{i \in I} \Prob\pqty{X_n = i, X_{n + 1} = j} \\
+        &= \sum_{i \in I} \pi_i P_{ij} \\
+        &= \pi_j.
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Limit Distribution is Invariant on Finite State Spaces]
+    If \(X\) is a Markov chain on a finite state space \(I\), and
+    \[
+        \Prob\pqty{X_m = i} \to \pi_i
+    \]
+    as \(n \to \infty\) for \(i \in I\), then \(\pi\) is an invariant distribution for \(X\).
+\end{theorem}
+
+\begin{proof}
+    Note that
+    \[
+        \Prob\pqty{X_{n + 1} = j} = \sum_{i \in I} \Prob\pqty{X_n = i} P_{ij}.
+    \]
+
+    Since the sum is finite, we can take \(n \to \infty\), giving
+    \[
+        \pi_j = \sum_{i \in I} \pi_i P_{ij},
+    \]
+    so \(\pi\) is invariant.
+
+    Also, since \(\sum_{i \in I} \Prob\pqty{X_n = i} = 1\) for all \(n\), taking \(n \to \infty\) inside the sum, we have \(\sum_{i \in I} \pi_i = 1\), so \(\pi\) is a probability distribution.
+\end{proof}
+
+\begin{remarks}
+    \begin{itemize}
+        \item Here, the assumption that \(I\) is finite is crucial, since for example, the SSRW on \(\ZZ\), we have
+        \[
+            p_{xy} \pqty{n} \to 0
+        \]
+        for all \(x, y\) as \(n \to \infty\).
+
+        \item If \(I\) is finite, then \(X\) always has an invariant distribution, by compatness. (We are not going to prove this.) Otherwise, things are more complex.
+    \end{itemize}
+\end{remarks}
+
+\begin{example}
+    We not recall the binary Markov chain we saw previously, with transition matrix
+    \[
+        P = \pmqty{
+            1 - \alpha & \alpha \\
+            \beta & 1 - \beta
+        }.
+    \]
+
+    Then note
+    \[
+        p_{00} \pqty{n} = \frac{\beta}{\alpha + \beta} + \frac{\alpha}{\alpha + \beta} (1 - \alpha - \beta)^n \to \frac{\beta}{\alpha + \beta},
+    \]
+    if \(\alpha + \beta > 0\). So we have a limiting distribution
+    \[
+        \pqty{\frac{\beta}{\alpha + \beta}, \frac{\alpha}{\alpha + \beta}},
+    \]
+    and it is indeed invariant under the transition matrix.
+\end{example}
+
+\begin{definition}[Expected Number of Visits Before Return]
+    For a fixed \(k \in I\), define
+    \[
+        \nu_k \pqty{j} = \Expt_k \pqty{\sum_{n = 0}^{T_k - 1} \indicator\pqty{X_n = j}}
+    \]
+    where \(T_k = \inf\set{n \geq 1}{X_n = k}\) is the first return time to \(k\).
+\end{definition}
