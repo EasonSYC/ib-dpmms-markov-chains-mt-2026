@@ -15,7 +15,7 @@ i.e., taking \(\pi\) as a row vector,
     \begin{itemize}
         \item A \term{measure} \(\lambda\) on \(I\) is a vector \(\lambda = \pqty{\lambda_i}_{i \in I}\) with non-negative entries, i.e., \(\lambda_i \ge 0\) for all \(i \in I\).
         \item A measure \(\lambda\) is a \term{probability distribution} if \(\sum_{i \in I} \lambda_i = 1\).
-        \item A measure (or \term{probability distribution}) \(\lambda\) is \term{invariant} or \term{stationary} with respect to a transition matrix \(P\) if \(\lambda P = \lambda\).
+        \item A measure \(\lambda\) is \term{invariant} or \term{stationary} with respect to a transition matrix \(P\) if \(\lambda P = \lambda\).
     \end{itemize}
 \end{definition}
 
@@ -94,3 +94,173 @@ i.e., taking \(\pi\) as a row vector,
     \]
     where \(T_k = \inf\set{n \geq 1}{X_n = k}\) is the first return time to \(k\).
 \end{definition}
+
+\begin{theorem}[Properties of \(\nu_k\)]
+    Suppose the transition matrix \(P\) is irreducible and recurrent. Then we have the following.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item \(\nu_k \pqty{k} = 1\) for all \(k \in I\).
+        \item \(0 < \nu_k \pqty{i} < \infty\) for all \(i, k \in I\).
+        \item \(\nu_k\) is an invariant measure for \(P\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}[label=(\roman*)]
+        \item This is obvious from the definition, since we are counting the number of visits to \(k\) before returning to \(k\), which is exactly 1.
+        \item[(iii)] Since \(P\) is recurrent, \(T_k < \infty\) with probability 1, and \(X_{T_k} = k\), we have
+        \begin{align*}
+            \nu_k \pqty{i} &= \Expt_k \pqty{\sum_{n = 0}^{T_k - 1} \indicator\pqty{X_n = j}} \\
+            &= \Expt_k \pqty{\sum_{n = 1}^{T_k} \indicator\pqty{X_n = j}} \\
+            &= \Expt_k \pqty{\sum_{n = 1}^{\infty} \indicator\pqty{X_n = i, n \leq T_k}} \\
+            &= \sum_{n \geq 1} \Prob_k \pqty{X_n = i, n \leq T_k} \\
+            &= \sum_{n \geq 1} \sum_{j \in I} \Prob_k \pqty{X_n = i, X_{n - 1} = j, n \leq T_k} \\
+            &= \sum_{n \geq 1} \sum_{j \in I} \Prob_k \pqty{\Conditional{X_n = i}{X_{n - 1} = j, n \leq T_k}} \Prob_k \pqty{X_{n - 1} = j, n \leq T_k}.
+        \end{align*}
+
+        Note that
+        \begin{align*}
+            \Bqty{T_k \geq k} &= \Bqty{T_k \leq n - 1}\compl \\
+            &= \Bqty{\bigcup_{t = 1}^{n - 1} \Bqty{X_k = t}}\compl,
+        \end{align*}
+        which only depends on \(X_0, X_1, \ldots, X_{n - 1}\), so it is a stopping time. Hence, by the strong Markov property,
+        \begin{align*}
+            \nu_k \pqty{i} &= \sum_{n \geq 1} \sum_{j \in I} P\pqty{j, i} \Prob_k \pqty{X_{n - 1} = j, T_k \geq n} \\
+            &= \sum_{j \in I} P\pqty{j, i} \sum_{n \geq 1} \Expt_k \pqty{\indicator\pqty{X_{n - 1} = j, T_k \geq n}} \\
+            &= \sum_{j \in I} P\pqty{j, i} \Expt_k \pqty{\sum_{n \geq 0} \indicator\pqty{X_{n} = j, T_k \geq n + 1}} \\
+            &= \sum_{j \in I} P\pqty{j, i} \Expt_k \pqty{\sum_{n = 0}^{T_k - 1} \indicator\pqty{X_n = j}} \\
+            &= \sum_{j \in I} P\pqty{j, i} \nu_k \pqty{j}.
+        \end{align*}
+        so \(\nu_k\) is an invariant measure.
+        \item[(ii)] Suppose (iii) is true for this proof. Then we have \(\nu_k = \nu_k P\), and hence \(\nu_k = \nu_k P^n\) for all \(n \geq 1\). Then, we have
+        \begin{align*}
+            \nu_k \pqty{i} &= \pqty{\nu_k P^n}_i \\
+            &= \sum_{j \in I} \nu_k \pqty{j} p_{ji} \pqty{n},
+        \end{align*}
+        and by irreducibility, we can choose \(n\) such that \(p_{ki} \pqty{n} > 0\). Then,
+        \[
+            \nu_k \pqty{i} \geq \nu_k \pqty{k} p_{ki} \pqty{n} = p_{ki} \pqty{n} > 0.
+        \]
+
+        Also, for any \(m \geq 1\), by invariance, we have
+        \begin{align*}
+            1 &= \nu_k \pqty{k} \\
+            &= \sum_{j \in I} \nu_k \pqty{j} p_{jk} \pqty{m} \\
+            &\geq \nu_k \pqty{i} p_{ik} \pqty{m},
+        \end{align*}
+        where we choose \(m \geq 1\) such that \(p_{ik} \pqty{m} > 0\) by irreducibility. Hence,
+        \[
+            \nu_k \pqty{i} \leq \frac{1}{p_{ik} \pqty{m}} < \plusinfty.
+        \]
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Uniqueness of Invariant Measure]
+    \label{thm:uniqueness-of-invariant-measure}%
+    Suppose \(P\) is irreducible and \(\lambda\) is an invariant measure such that \(\lambda_k = 1\). Then \(\lambda \geq \nu_k\) in components. Moreover, if \(P\) is recurrent, then \(\lambda = \nu_k\).
+\end{theorem}
+
+\begin{proof}
+    Since \(\lambda\) is invariant, we have
+    \begin{align*}
+        \lambda_i &= \sum_{j \in I} \lambda_j P\pqty{j, i} \\
+        &= P\pqty{k, i} + \sum_{j \in I \setminus \Bqty{k}} \lambda_j P\pqty{j, i} \\
+        &= P\pqty{k, i} + \sum_{j_1 \neq k} \sum_{j_2 \in I} \lambda_{j_2} P\pqty{j_2, j_1} P\pqty{j_1, i} \\
+        &= P\pqty{k, i} + \sum_{j_1 \neq k} P\pqty{k, j_1} P\pqty{j_1, i} + \sum_{j_1, j_2 \neq k} \lambda_{j_2} P\pqty{j_2, j_1} P\pqty{j_1, i} \\
+        &= \cdots \\
+        &= P\pqty{k, i} + \sum_{j_1 \neq k} P\pqty{k, j_1} P\pqty{j_1, i} + \cdots \\
+        &\phantom{=} \qquad + \sum_{j_1, \ldots, j_{n - 1} \neq k} P\pqty{k, j_1} P\pqty{j_1, j_2} \cdots P\pqty{j_{n - 1}, i} \\
+        &\phantom{=} \qquad + \sum_{j_1, \ldots, j_n \neq k} \lambda_{j_n} P\pqty{j_n, j_{n - 1}} \cdots P\pqty{j_1, i},
+    \end{align*}
+    and hence
+    \[
+        \lambda_i \geq \Prob_k \pqty{X_1 = i, T_k \geq 1} + \Prob_k \pqty{X_2 = i, T_k \geq 2} + \cdots + \Prob_k \pqty{X_n = i, T_k \geq n}.
+    \]
+
+    Therefore, we have
+    \begin{align*}
+        \lambda_i &\geq \sum_{n = 1}^{\infty} \Prob_k \pqty{X_n = i, T_k \geq n} \\
+        &= \sum{n = 1}^{\infty} \Expt_k \pqty{\indicator\pqty{X_n = i, T_k \geq n}} \\
+        &= \Expt_k \pqty{\sum_{n = 1}^{T_k} \indicator\pqty{X_n = i}} \\
+        &= \nu_k \pqty{i}.
+    \end{align*}
+
+    If \(P\) is also recurrent, \(\nu_k\) is invariant, and hence so is the measure \(\lambda - \nu_k\), so
+    \[
+        \pqty{\lambda - \nu_k} = \pqty{\lambda - \nu_k} P^n
+    \]
+    for all \(n \geq 1\). The, for all \(i \in I\) and \(i \neq k\), we have
+    \begin{align*}
+        0 &= \pqty{\lambda - \nu_k}_k \\
+        &= \bqty{\pqty{\lambda - \nu_k} P^n}_k \\
+        &= \sum_{j \in I} \pqty{\lambda - \nu_k}_j p\pqty{j, k} \pqty{n}.
+    \end{align*}
+
+    Choose \(n \geq 1\) such that \(P_{ik} > 0\). Then
+    \[
+        0 \geq \pqty{\lambda - \nu_k}_i P_{ik} \pqty{n}
+    \]
+    and hence \(\pqty{\lambda - \nu_k}_i = 0\), so \(\lambda = \nu_k\).
+\end{proof}
+
+\begin{definition}[Positive and Null Recurrence]
+    A recurrent state \(i\) is is \term{positive recurrent} if \(\Expt_i \pqty{T_i} < \infty\) , and \term{null recurrent} if \(\Expt_i \pqty{T_i} = \infty\).
+\end{definition}
+
+\begin{theorem}
+    If \(P\) is irreducible, then the following are equivalent.
+
+    \begin{enumerate}[label=(\roman*)]
+        \item All states are positive recurrent.
+        \item At least one state is positive recurrent.
+        \item \(P\) has an invariant distribution \(\pi\).
+    \end{enumerate}
+
+    If any of these hold, then
+    \[
+        \pi_i = \frac{1}{\Expt_i \pqty{T_i}}
+    \]
+    for all \(i \in I\).
+\end{theorem}
+
+\begin{proof}
+    \begin{itemize}
+        \item (i) \(\implies\) (ii) is obvious.
+        \item (ii) \(\implies\) (iii): Suppose \(k\) is positive recurrent. Then
+        \begin{align*}
+            \sum_{i \in I} \nu_k \pqty{i} = \sum_{i \in I} \Expt_k \pqty{\sum_{n = 0}^{T_k - 1} \indicator\pqty{X_n = i}} \\
+            &= \Expt_k \pqty{T_k} < \infty,
+        \end{align*}
+        so define \(\pi = \flatfrac{\nu_k}{\Expt_k \pqty{T_k}}\). Since \(\nu_k\) is invariant, \(\pi\) is a probability distribution and invariant.
+        \item (iii) \(\implies\) (i): Let \(k\) be arbitrary. Then
+        \[
+            \pi_k = \sum_{j \in I} \pi_j p_{jk} \pqty{n}
+        \]
+        and choosing a state \(i\) such that \(\pi_i > 0\) and \(n\) such that \(p_{ik} \pqty{n} > 0\), we have
+        \[
+            \pi_k \geq \pi_i p_{ik} \pqty{n} > 0,
+        \]
+        so \(\pi_k > 0\) for all \(k\).
+
+        Now, for a fixed \(k\), define a new invariant measure
+        \[
+            \lambda_i = \frac{\pi_i}{\pi_k}.
+        \]
+        for all \(i\), so that \(\lambda_k = 1\). Then we must have that \(\lambda \geq \nu_k\) in components by \autoref{thm:uniqueness-of-invariant-measure}, so
+        \begin{align*}
+            \Expt_k\pqty{T_k} &= \sum_{i \in I} \nu_k \pqty{i} \\
+            &\leq \sum_{i \in I} \lambda_i \\
+            &= \frac{1}{\pi_k} \sum_{i \in I} \pi_i \\
+            &= \frac{1}{\pi_k} < \infty
+        \end{align*}
+        hence \(k\) is positive recurrent.
+    \end{itemize}
+
+    Finally, since the chain is positive recurrent, we must have \(\lambda = \nu_k\), so
+    \begin{align*}
+        \frac{1}{\pi_k} &= \sum_{i \in I} \frac{\pi_i}{\pi_k} \\
+        &= \sum_{i \in I} \lambda_i \\
+        &= \sum_{i \in I} \nu_k \pqty{i} \\
+        &= \Expt_k \pqty{T_k}.
+    \end{align*}
+\end{proof}
