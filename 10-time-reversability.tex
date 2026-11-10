@@ -1,0 +1,104 @@
+\section{Time Reversibility}
+
+\begin{definition}[Reversibility]
+    A chain with transition matrix \(P\) and invariant distribution \(\pi\) is said to be \term{reversible}, if
+    \[
+        P\pqty{x, y} = \hat{P}\pqty{x, y},
+    \]
+    where \(\hat{P}\) is defined by
+    \[
+        \hat{P}\pqty{x, y} = \frac{\pi\pqty{y}}{\pi\pqty{x}} P\pqty{y, x},
+    \]
+    for all \(x, y \in I\).
+\end{definition}
+
+Note in particular that \(\hat{P}\) is always a transition matrix, with
+\[
+    \sum_{y \in I} \hat{P}\pqty{x, y} = \pqty{\sum_y \pi\pqty{y} P\pqty{y, x}} \frac{1}{\pi\pqty{x}} = 1
+\]
+for all \(x \in I\).
+
+\begin{theorem}[Reversibility and Irreducible Chains]
+    Suppose \(X \sim \Markov\pqty{\pi, P}\) is irreducible and \(\pi\) is invariant for \(P\). For a fixed \(N \geq 1\), define \(Y_k = X_{N - k}\). Then the process \(Y = \pqty{Y_k}_{0 \leq k \leq N}\) satisfies \(Y \sim \Markov\pqty{\pi, \hat{P}}\), and is also irreducible.
+\end{theorem}
+
+\begin{proof}
+    Since \(\pi\) is invariant and \(X_0 \sim \pi\), we have \(X_N = Y_0 \sim \pi\) for the initial distribution.
+
+    To see it is Markov, we have
+    \begin{align*}
+        \Prob\pqty{Y_0 = y_0, \ldots, Y_N = y_N} &= \Prob\pqty{X_0 = y_N, \ldots, X_N = y_0} \\
+        &= \pi\pqty{y_N} P\pqty{y_N, y_{N - 1}} \cdots P\pqty{y_1, y_0} \\
+        &= \pi\pqty{y_0} \hat{P}\pqty{y_0, y_1} \cdots \hat{P}\pqty{y_{N - 1}, y_N} \\
+        &= \Prob\pqty{Y_0 = y_0} \hat{P}\pqty{y_0, y_1} \cdots \hat{P}\pqty{y_{N - 1}, y_N},
+    \end{align*}
+    so \(Y \sim \Markov\pqty{\pi, \hat{P}}\).
+
+    Since all \(\pi_i > 0\), we have \(\hat{P}\pqty{x, y} > 0\) if and only if \(P\pqty{y, x} > 0\). Hence \(X\) is irreducible implies \(Y\) is irreducible.
+\end{proof}
+
+\begin{lemma}[Reversibility Implies Invariance]
+    If a measure \(\lambda\) satisfies
+    \[
+        \lambda_i P\pqty{i, j} = \lambda_j P\pqty{j, i}
+    \]
+    for all \(i, j \in I\), then \(\lambda\) is invariant for \(P\).
+\end{lemma}
+
+\begin{proof}
+    Assuming this condition, and summing over all \(i\), we have
+    \[
+        \sum_{i \in I} \lambda_i P\pqty{i, j} = \lambda_j \sum_{i \in I} P\pqty{j, i} = \lambda_j,
+    \]
+    for any \(j \in I\), so \(\lambda\) is invariant for \(P\).
+\end{proof}
+
+\begin{examples}
+    \begin{enumerate}
+        \item Suppose \(X\) is a random walk on the circle \(\ZZ_n = \Bqty{0, 1, \ldots, n - 1}\) with \(P\pqty{i, i + 1} = \flatfrac{2}{3}\), and \(P\pqty{i, i - 1} = \flatfrac{1}{3}\) (all modulo \(n\)). Then
+        \[
+            \pi_i = \pi_{i + 1} \cdot \frac{1}{3} + \pi_{i - 1} \cdot \frac{2}{3},
+        \]
+        so \(\pi_i = \flatfrac{1}{n}\) is an invariant distribution, and since this chain is irreducible, it is unique. Moreover, it satisfies
+        \[
+            \pi_i \cdot \frac{2}{3} \neq \pi_{i + 1} \cdot \frac{1}{3},
+        \]
+        so the chain is not reversible.
+
+        \item Suppose \(X\) is a random walk on \(\ZZ_n\), but this time with transition probabilities
+        \begin{align*}
+            P\pqty{i, i + 1} &= \frac{2}{3}, &  P\pqty{i, i - 1} &= \frac{1}{3} && 1 \leq i \leq n - 2, \\
+            P\pqty{0, 0} &= \frac{1}{3}, & P\pqty{0, 1} &= \frac{2}{3}, \\
+            P\pqty{n - 1, n - 1} &= \frac{2}{3}, & P\pqty{n - 1, n - 2} &= \frac{1}{3}. \\
+        \end{align*}
+
+        For this chain, it is easy to check that \(\lambda_i = 2^i\) satisfies the balance conditions
+        \[
+            \lambda_i P\pqty{i, j} = \lambda_{j} P\pqty{j, i},
+        \]
+        so this chain is reversible.
+
+        \item Suppose \(G = \pqty{V, E}\) is a finite, simply connected, undirected graph, and let \(\deg x\) be the degree of vertex \(x\).  Consider the transition matrix \(P\) defined by
+        \[
+            P\pqty{x, y} = \begin{cases}
+                \frac{1}{\deg x}, & \qif \Bqty{x, y} \in E, \\
+                0, & \quad\text{otherwise}.
+            \end{cases}
+        \]
+
+        Then the distribution
+        \[
+            \pi_x = \frac{\deg x}{2 \abs{E}}
+        \]
+        is invariant for \(P\), and satisfies the detailed balance conditions. If \(\pqty{x, y} \in E\), we have
+        \[
+            \pi_x P\pqty{x, y} = \frac{\deg \pqty{x}}{2 \abs{E}} \frac{1}{\deg x} = \frac{1}{2 \abs{E}},
+        \]
+        and similarly,
+        \[
+            \pi_y P\pqty{y, x} = \frac{\deg \pqty{y}}{2 \abs{E}} \frac{1}{\deg y} = \frac{1}{2 \abs{E}}.
+        \]
+
+        Since the chain is irreducible, this is its unique invariant distribution, and the chain is reversible.
+    \end{enumerate}
+\end{examples}

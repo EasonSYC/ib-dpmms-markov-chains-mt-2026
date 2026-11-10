@@ -264,3 +264,46 @@ i.e., taking \(\pi\) as a row vector,
         &= \Expt_k \pqty{T_k}.
     \end{align*}
 \end{proof}
+
+\begin{corollary}[Ratio of Invariant Distribution gives Expected Number of Visits]
+    If \(P\) is irreducible and has invariant distribution \(\pi\), then
+    \[
+        \nu_x \pqty{y} = \frac{\pi_y}{\pi_x}
+    \]
+    for all \(x, y \in I\).
+\end{corollary}
+
+\begin{examples}
+    \begin{enumerate}
+        \item Consider a simple, \emph{symmetric} random walk on \(\ZZ\). Then the invariance equations read \(\pi_i = \frac{1}{2} \pi_{i - 1} + \frac{1}{2} \pi_{i + 1}\) for all \(i\).
+        So \(\lambda_i = 1\) for all \(i\) is an invariant measure, but \(\lambda\) \emph{cannot} be normalised to give an invariant distribution, so the chain is \emph{not} positive recurrent.
+        
+        \item Consider a simple, \emph{asymmetric} random walk on \(\ZZ\), with transition probabilities \(P\pqty{i, i + 1} = p\) and \(p\pqty{i, i - 1} = q\) for all \(i\), where \(p + q = 1\). Then this gives
+        \[
+            \pi_i = \pi_{i - 1} p + \pi_{i + 1} q
+        \]
+        for all \(i\) for any \(a \geq 0\). So we have a family of invariant measures, so the chain is \emph{not} positive recurrent.
+
+        \item Consider an \emph{asymmetric} random walk on \(\NN_0\), with transition probabilities
+        \begin{align*}
+            P\pqty{i, i + 1} &= p < \frac{1}{2}, & P\pqty{i, i - 1} &= q = 1 - p > \frac{1}{2}, && i \geq 1, \\
+            P\pqty{0, 1} &= p, & P\pqty{0, 0} &= q.
+        \end{align*}
+
+        Then, we have
+        \begin{align*}
+            \pi_i &= \pi_{i - 1} p + \pi_{i + 1} q, && i \geq 1 \\
+            \pi_0 &= \pi_0 q + \pi_1 q.
+        \end{align*}
+
+        Solving recursively gives
+        \[
+            \pi_i = \pqty{\frac{p}{q}}^i \pi_0,
+        \]
+        and normalising gives
+        \[
+            \pi_i = \pqty{1 - \frac{p}{q}} \pqty{\frac{p}{q}}^i,
+        \]
+        for \(i \geq 0\). So the chain is positive recurrent, an this is its unique stationary distribution.
+    \end{enumerate}
+\end{examples}
