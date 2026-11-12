@@ -13,7 +13,7 @@
         \]
         and the \term{first return time} as \(T_i^{\pqty{1}} = T_i\).
         \item Define the \term{return probabilities} as \(f_i = \Prob_i \pqty{T_i < \infty}\).
-        \item The \term{total number of visits to \(i\)} is given by \(V_i = \sum_{k = 0}^{\infty} \indicator \Bqty{X_k = i}\).
+        \item The \term{total number of visits to \(i\)} is given by \(V_i = \sum_{k = 0}^{\infty} \indicator \set{X_k = i}\).
     \end{itemize}
 \end{definition}
 
@@ -57,7 +57,7 @@
 \begin{proof}
     First notice that
     \begin{align*}
-        \Expt_i \pqty{V_i} &= \Expt_i \pqty{\sum_{k = 0}^{\infty} \indicator \Bqty{X_k = i}} \\
+        \Expt_i \pqty{V_i} &= \Expt_i \pqty{\sum_{k = 0}^{\infty} \indicator \set{X_k = i}} \\
         &= \sum_{k = 0}^{\infty} \Prob_i \pqty{X_k = i} \\
         &= \sum_{k = 0}^{\infty} p_{ii} \pqty{k}.
     \end{align*}

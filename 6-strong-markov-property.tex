@@ -1,7 +1,7 @@
 \section{Strong Markov Property}
 
 \begin{definition}[Stopping Time]
-    A random variable \(T\) with values on \(\NN_0 \cup \Bqty{\infty}\) is a \term{stopping time} with respect to a random process \(\pqty{X_n}_{n \geq 0}\) , if the event \(\Bqty{T = n}\) only depends on \(\pqty{X_0, \ldots, X_n}\), for all \(n \geq 0\).
+    A random variable \(T\) with values on \(\NN_0 \cup \set{\infty}\) is a \term{stopping time} with respect to a random process \(\pqty{X_n}_{n \geq 0}\) , if the event \(\set{T = n}\) only depends on \(\pqty{X_0, \ldots, X_n}\), for all \(n \geq 0\).
 \end{definition}
 
 \begin{example}[First Hitting Times and Last Exit Time]
@@ -9,7 +9,7 @@
 
     Recall from definition that \(T_A = \inf\set{n \geq 0}{X_n \in A}\), so
     \[
-        \Bqty{T_A = n} = \Bqty{X_0 \notin A, \ldots, X_{n - 1} \notin A, X_n \in A}
+        \set{T_A = n} = \set{X_0 \notin A, \ldots, X_{n - 1} \notin A, X_n \in A}
     \]
     but the \term{last exit time} \(S_A = \sup \set{n \geq 0}{X_n \in A}\) is \emph{not} a stopping time.
 \end{example}
@@ -17,7 +17,7 @@
 \begin{theorem}[Strong Markov Property]
     Suppose \(X = \pqty{X_n}_{n \geq 0}\) be a Markov chain with \(X \sim \Markov\pqty{\lambda, P}\), and let \(T\) be a stopping time, with \(i \in I\). Then, conditional on the event
     \[
-        \Bqty{T < \infty} \cap \Bqty{X_T = i},
+        \set{T < \infty} \cap \set{X_T = i},
     \]
     the process \(\pqty{X_{T + n}}_{n \geq 0} \sim \Markov\pqty{\kronecker_i, P}\), and it is independent of \(\pqty{X_0, X_1. \ldots, X_T}\).
 \end{theorem}
@@ -26,7 +26,7 @@
     We need to show that, for any \(x_0, x_1, \ldots, x_n \in I\) and any finite-length path \(w \in \bigcup_{k \geq 0} I^k\), we have
     \begin{align*}
         &\phantom{=} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_T} = w, X_T = x_0, X_{T + 1} = x_1, \ldots, X_{T + n} = x_n}{T < \infty, X_T = i}} \\
-        &= \indicator\Bqty{x_0 = i} P\pqty{x_0, x_1} \cdots P\pqty{x_{n - 1}, x_n} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_T} = w}{T < \infty, X_T = i}}.
+        &= \indicator\set{x_0 = i} P\pqty{x_0, x_1} \cdots P\pqty{x_{n - 1}, x_n} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_T} = w}{T < \infty, X_T = i}}.
     \end{align*}
 
     For a fixed \(w \in I^{k + 1}\) and fixed \(x_0, x_1, \ldots, x_n \in I\), we have
@@ -38,7 +38,7 @@
     \begin{align*}
         &\phantom{=} \Prob\pqty{\pqty{X_0, \ldots, X_k} = w, X_k = i, T = k} \cdot \Prob\pqty{\Conditional{X_{k + 1} = x_1, \ldots, X_{k + n} = x_n}{\pqty{X_0, \ldots, X_k} = w, X_k = i, T = k}} \\
         &= \Prob\pqty{\Conditional{X_k = x_0, \ldots, X_{k + n} = x_n}{X_k = i}} \cdot \Prob\pqty{\pqty{X_0, \ldots, X_k} = w, X_k = i, T = k} \\
-        &= \indicator \Bqty{x_0 = i} P\pqty{x_0, x_1} \cdots P\pqty{x_{n - 1}, x_n} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_T} = w}{T < \infty, X_T = i}}
+        &= \indicator \set{x_0 = i} P\pqty{x_0, x_1} \cdots P\pqty{x_{n - 1}, x_n} \Prob\pqty{\Conditional{\pqty{X_0, \ldots, X_T} = w}{T < \infty, X_T = i}}
     \end{align*}
     as desired.
 \end{proof}
@@ -49,7 +49,7 @@
         h_1^A = \frac{1}{2} + \frac{1}{2} h_2^A.
     \]
 
-    Starting at \(2\), let \(\tilde{T}_0\) denote the first time to visit \(0\) under \(\Prob_1\), independent of \(T_1\). Then, by the strong Markov property, conditional on \(\Bqty{T_1 < \infty}\), under \(\Prob_2\), we have \(T_0 = T_1 + \tilde{T}_0\), and hence
+    Starting at \(2\), let \(\tilde{T}_0\) denote the first time to visit \(0\) under \(\Prob_1\), independent of \(T_1\). Then, by the strong Markov property, conditional on \(\set{T_1 < \infty}\), under \(\Prob_2\), we have \(T_0 = T_1 + \tilde{T}_0\), and hence
     \begin{align*}
         h_2^A &= \Prob_2 \pqty{T_0 < \infty} \\
         &= \Prob_2 \pqty{T_0 < \infty, T_1 < \infty} \\

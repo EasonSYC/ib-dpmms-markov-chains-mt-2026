@@ -42,7 +42,7 @@
 \begin{definition}[Unit Mass Notation]
     For any \(i \in I\), we let \(\kronecker_i\) denote the probability distribution that places a unit mass at \(i\):
     \[
-        \delta_{ij} = \indicator\Bqty{j = i} = \begin{cases}
+        \delta_{ij} = \indicator\set{j = i} = \begin{cases}
             1, & j = i, \\
             0, & j \neq i.
         \end{cases}
@@ -67,7 +67,7 @@ Recall the following facts.
 
 \begin{theorem}[Markov Property]
     \label{thm:markov-property}%
-    Suppose \(X = \pqty{X_n}_{n \geq 0} \sim \Markov\pqty{\lambda, P}\) and let \(m \geq 1\) and \(i \in I\). Then, conditional on \(\Bqty{X_m = i}\), the new process \(\pqty{X_{m + n}}_{n \geq 0} \sim \Markov\pqty{\delta_i, P}\) and it is independent of \(\pqty{X_0, \ldots, X_m}\)
+    Suppose \(X = \pqty{X_n}_{n \geq 0} \sim \Markov\pqty{\lambda, P}\) and let \(m \geq 1\) and \(i \in I\). Then, conditional on \(\set{X_m = i}\), the new process \(\pqty{X_{m + n}}_{n \geq 0} \sim \Markov\pqty{\delta_i, P}\) and it is independent of \(\pqty{X_0, \ldots, X_m}\)
 \end{theorem}
 
 \begin{proof}
@@ -75,15 +75,15 @@ Recall the following facts.
     \[
         \Prob\pqty{X_m = j} = \delta_{ij}
     \]
-    since we conditioned on \(\Bqty{X_m = i}\).
+    since we conditioned on \(\set{X_m = i}\).
     \begin{align*}
         &\phantom{=} \Prob\pqty{\Conditional{X_m = x_m, X_{m + 1} = x_{m + 1}, \ldots, X_{m + n} = x_{m + n}}{X_m = i}} \\
-        &= \indicator \Bqty{x_m = i} \frac{\Prob\pqty{X_m = x_m, X_{m + 1} = x_{m + 1}, \ldots, X_{m + n} = x_{m + n}}}{\Prob\pqty{X_m = x_m}} \\
-        &= \frac{\indicator \Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} \sum_{x_0, \ldots, x_{m - 1} \in I} \Prob\pqty{X_0 = x_0, \ldots, X_m = x_m, X_{m + 1} = x_{m + 1}, \ldots, X_{m + n} = x_{m + n}} \\
-        &= \frac{\indicator \Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} \sum_{x_0, \ldots, x_{m - 1} \in I} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \\
-        &= \frac{\indicator \Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \sum_{x_0, \ldots, x_{m - 1} \in I} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} \\
-        &= \frac{\indicator \Bqty{x_m = i} \Prob\pqty{X_m = x_m}}{\Prob\pqty{X_m = x_m}} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \\
-        &= \indicator \Bqty{x_m = i} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}}
+        &= \indicator \set{x_m = i} \frac{\Prob\pqty{X_m = x_m, X_{m + 1} = x_{m + 1}, \ldots, X_{m + n} = x_{m + n}}}{\Prob\pqty{X_m = x_m}} \\
+        &= \frac{\indicator \set{x_m = i}}{\Prob\pqty{X_m = x_m}} \sum_{x_0, \ldots, x_{m - 1} \in I} \Prob\pqty{X_0 = x_0, \ldots, X_m = x_m, X_{m + 1} = x_{m + 1}, \ldots, X_{m + n} = x_{m + n}} \\
+        &= \frac{\indicator \set{x_m = i}}{\Prob\pqty{X_m = x_m}} \sum_{x_0, \ldots, x_{m - 1} \in I} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \\
+        &= \frac{\indicator \set{x_m = i}}{\Prob\pqty{X_m = x_m}} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \sum_{x_0, \ldots, x_{m - 1} \in I} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} \\
+        &= \frac{\indicator \set{x_m = i} \Prob\pqty{X_m = x_m}}{\Prob\pqty{X_m = x_m}} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}} \\
+        &= \indicator \set{x_m = i} P_{x_m x_{m + 1}} \cdots P_{x_{m + n - 1} x_{m + n}}
     \end{align*}
     which is precisely the condition for \(\Markov\pqty{\delta_i, P}\), by \autoref{thm:markov-chain-characterisation}.
 
@@ -99,9 +99,9 @@ Recall the following facts.
     Then,
     \begin{align*}
         \phantom{=} &\Prob\pqty{\Conditional{X_0 = x_0, \ldots, X_m = x_m, X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_m = i}} \\
-        &= \indicator\Bqty{x_m = i} \frac{\Prob\pqty{X_0 = x_0, \ldots, X_m = x_m, X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}}{\Prob\pqty{X_m = x_m}} \\
-        &= \frac{\indicator\Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} \Prob\pqty{X_0 = x_0, \ldots, X_m = x_m} \Prob\pqty{\Conditional{X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_0 = x_0, \ldots, X_m = x_m}} \\
-        &= \frac{\indicator\Bqty{x_m = i}}{\Prob\pqty{X_m = x_m}} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} \Prob\pqty{\Conditional{X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_m = x_m}}\\
+        &= \indicator\set{x_m = i} \frac{\Prob\pqty{X_0 = x_0, \ldots, X_m = x_m, X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}}{\Prob\pqty{X_m = x_m}} \\
+        &= \frac{\indicator\set{x_m = i}}{\Prob\pqty{X_m = x_m}} \Prob\pqty{X_0 = x_0, \ldots, X_m = x_m} \Prob\pqty{\Conditional{X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_0 = x_0, \ldots, X_m = x_m}} \\
+        &= \frac{\indicator\set{x_m = i}}{\Prob\pqty{X_m = x_m}} \lambda_{x_0} P_{x_0 x_1} \cdots P_{x_{m - 1} x_m} \Prob\pqty{\Conditional{X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_m = x_m}}\\
         &= \Prob\pqty{\Conditional{X_0 = x_0, \ldots, X_m = x_m}{X_m = i}} \cdot \Prob\pqty{\Conditional{X_{i_1} = x_{m + 1}, \ldots, X_{i_k} = x_{m + k}}{X_m = i}}
     \end{align*}
     using \autoref{thm:markov-chain-characterisation} again, note that the definition of a Markov chain is applied in the third equal sign, more rigorously by summing through the possibilities of the intermediate times between \(i_1, \ldots, i_k\). This finishes the proof.

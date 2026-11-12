@@ -36,7 +36,7 @@
     If \(i \in A\), then \(h_i^A = 1\) by definition. If \(i \notin A\), then
     \begin{align*}
         h_i^A &= \Prob_i \pqty{T_A < \infty} \\
-        &= \Prob_i \pqty{\Bqty{T_A = 0} \cup \bigcup_{n \geq 1} \Bqty{T_A = n}} \\
+        &= \Prob_i \pqty{\set{T_A = 0} \cup \bigcup_{n \geq 1} \set{T_A = n}} \\
         &= \sum_{n \geq 1} \Prob_i \pqty{T_A = n} \\
         &= \Prob\pqty{\Conditional{X_1 \in A}{X_0 = i}} + \sum_{n \geq 2} \Prob \pqty{\Conditional{X_1 \notin A, \ldots, X_{n-1} \notin A, X_n \in A}{X_0 = i}} \\
         &= \sum_{j \in I} P\pqty{i, j} \Prob\pqty{\Conditional{X_1 \in A}{X_0 = i, X_1 = j}} \\
@@ -123,7 +123,7 @@
     \]
     for \(i \geq 1\), and \(P\pqty{0, 1} = 1\).
 
-    We want to find \(h_i^{\Bqty{0}}\). Let \(A = \Bqty{0}\). From the theorem, we have \(h_0^A = 1\), and
+    We want to find \(h_i^{\set{0}}\). Let \(A = \set{0}\). From the theorem, we have \(h_0^A = 1\), and
     \[
         h_i^A = p h_{i + 1}^{A} + q h_{i - 1}^A, \quad i \geq 1.
     \]  
@@ -152,7 +152,7 @@
 \end{example}
 
 \begin{example}[Birth and Death Chain on \(\NN_0\)]
-    Suppose \(X\) is a Markov chain on \(\NN_0 = \Bqty{0, 1, \ldots}\), where the transition probabilities are given by
+    Suppose \(X\) is a Markov chain on \(\NN_0 = \set{0, 1, \ldots}\), where the transition probabilities are given by
     \[
         P\pqty{i, i + 1} = p_i \qand P\pqty{i, i - 1} = 1 - p_i = q_i
     \]
@@ -160,7 +160,7 @@
     \[
         P\pqty{0, 0} = 1
     \]
-    for the distinct state. What is the probability of distinction, i.e., \(h_i^A\) where \(A = \Bqty{0}\)?
+    for the distinct state. What is the probability of distinction, i.e., \(h_i^A\) where \(A = \set{0}\)?
 
     Clearly, if \(i = 0\), then \(h_i^A = 1\), and for \(i \geq 1\), the recursion equation
     \[
@@ -210,7 +210,7 @@
 Now we return to \autoref{fig:hitting-probability-example}.
 
 \begin{example}[Mean Hitting Time]
-    Refer to \autoref{fig:hitting-probability-example}, let \(A = \Bqty{0, 3}\), we have
+    Refer to \autoref{fig:hitting-probability-example}, let \(A = \set{0, 3}\), we have
     \[
         k_1^A = 1 + \frac{1}{2} k_2^A = 1 + \frac{1}{2} k_1^A
     \]
