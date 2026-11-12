@@ -1,0 +1,160 @@
+\section{Convergence to Equilibrium}
+
+\begin{definition}[Periodicity]
+    Let \(P\) be a transition matrix. A state \(i \in I\) has \term{period} \(d_i\), where
+    \[
+        d_i = \gcd \set{n \geq 1}{p_{i i} \pqty{n} > 0}.
+    \]
+
+    A state \(i\) is \term{aperiodic} if \(d_i = 1\). The chain \(X\) (or the transition matrix \(P\)) is \term{aperiodic} if all states are aperiodic.
+\end{definition}
+
+\begin{lemma}[Aperiodicity and Self-Transition]
+    If \(i\) is aperiodic, then
+    \[
+        \exists N \in \NN, \forall n \geq N: p_{i i} \pqty{n} > 0,
+    \]
+    i.e., \(p_{ii} \pqty{n} > 0\) for all sufficiently large \(n\); and vice versa.
+\end{lemma}
+
+\begin{proof}
+    The if direction is obvious by the definition of aperiodicity. In the only-if direction, let
+    \[
+        D\pqty{i} = \set{n \geq 1}{p_{i i} \pqty{n} > 0}.
+    \]
+
+    Then \(D\pqty{i}\) has greatest common divisor \(d_i = 1\) and it is closed under addition, i.e., if \(m, n \in D\pqty{i}\), then \(m + n \in D\pqty{i}\), since
+    \[
+        p_{i i} \pqty{m + n} \geq p_{i i} \pqty{m} p_{i i} \pqty{n} > 0.
+    \]
+
+    The result is a consequence of the elementary number-theoretic fact that any set \(D \subseteq \NN\) with these two properties contains all sufficiently large integers.
+\end{proof}
+
+\begin{lemma}[Aperiodicity is a Class Property]
+    Let \(P\) be irreducible. If there is an aperiodic state \(i\), then all states are aperiodic.
+\end{lemma}
+
+\begin{proof}
+    Let \(j \in I\). By irreducibility, we can find \(m, l\) such that \(p_{i j} \pqty{m} > 0\) and \(p_{j i} \pqty{l} > 0\). Then for any \(n \geq N\), we have
+    \[
+        p_{jj} \pqty{l + n + m} \geq p_{ji} \pqty{l} p_{ii} \pqty{n} p_{ij} \pqty{m} > 0,
+    \]
+    where \(p_{ii} \pqty{n} > 0\) for all sufficiently large \(n\) by the previous lemma. Hence \(j\) is aperiodic.
+\end{proof}
+
+\begin{example}
+    If \(P\) is irreducible and \(P\pqty{i, i} > 0\) for some \(i \in \), then the whole chain is aperiodic.
+\end{example}
+
+\begin{theorem}[Convergence to Equilibrium]
+    Let \(X \sim \Markov\pqty{\lambda, P}\) on \(I\) be irreducible, aperiodic and has invariant distribution \(\pi\). Then
+    \[
+        \Prob\pqty{X_n = j} \to \pi_j
+    \]
+    as \(n \to \infty\), for all \(j in I\).
+
+    In particular, taking \(\lambda = \kronecker_i\) to be the unit mass distribution at \(i\), we have
+    \[
+        p_{ij} \pqty{n} = \Prob\pqty{\Conditional{X_n = j}{X_0 = i}} \to \pi_j
+    \]
+    as \(n \to \infty\), for all \(i, j \in I\).
+\end{theorem}
+
+\begin{proof}
+    Let \(Y = \pqty{Y_n}_{n \geq 0} \sim \Markov\pqty{\pi, P}\) be a stationary version of the Markov chain and independent of \(X\). Consider the new joint process \(W_n = \pqty{X_n, Y_n}\) for \(n \geq 0\).
+
+    Then \(W\) is a Markov chain on \(I \times I\) with transition matrix of the form
+    \[
+        \tilde{P} \pqty{\pqty{x, y}, \pqty{x', y'}} = P\pqty{x, x'} P\pqty{y, y'}.
+    \]
+
+    We claim that \(W\) is irreducible. Note that
+    \[
+        \tilde{P}_{\pqty{x, y}, \pqty{x', y'}} \pqty{n} = P_{x, x'} \pqty{n} P_{y, y'} \pqty{n},
+    \]
+    and by irreducibility of the original chain, we can pick \(m, l\) such that
+    \[
+        p_{x x'} \pqty{m} > 0 \qand p_{y y'} \pqty{l} > 0.
+    \]
+
+    Then,
+    \[
+        \tilde{P}_{\pqty{x, y}, \pqty{x', y'}} \pqty{m + l + n} \geq p_{x x'} 
+        \pqty{n} p_{x' x'} \pqty{l + n} p_{y y'} \pqty{l} p_{y' y'} \pqty{m + n} > 0
+    \]
+    for all \(n\) sufficiently large, since \(p_{x' x'} \pqty{l + n} > 0\) and \(p_{y' y'} \pqty{m + n} > 0\) for all sufficiently large \(n\) by aperiodicity. So \(W\) is irreducible indeed.
+
+    Now, define the random variable
+    \[
+        T = \inf \set{n \geq 1}{W_n = \pqty{a, a}}
+    \]
+    for some fixed \(a \in I\). Let \(\tilde{\pi} \pqty{x, y} = \pi\pqty{x} \pi\pqty{y}\). Then we have
+    \begin{align*}
+        \sum_{x, y} \tilde{\pi} \pqty{x, y} \tilde{P} \pqty{\pqty{x, y}, \pqty{x', y'}} &= \sum_{x, y} \pi\pqty{x} \pi\pqty{y} P\pqty{x, x'} P\pqty{y, y'} \\
+        &= \sum_{x} \pi\pqty{x} P\pqty{x, x'} \sum_{y} \pi\pqty{y} P\pqty{y, y'} \\
+        &= \pi\pqty{x'} \pi\pqty{y'} && \text{by invariance of }\pi \\
+        &= \tilde{\pi} \pqty{x', y'},
+    \end{align*}
+    so \(\tilde{\pi}\) is invariant for \(\tilde{P}\). So \(\tilde{P}\) is positive recurrent, and in particular, \(\Prob\pqty{T < \infty} = 1\).
+
+    We now define a new process \(Z = \pqty{Z_n}_{n \geq 0}\) on \(I\) by
+    \[
+        Z_n = \begin{cases}
+            X_n, &\qfor n < T, \\
+            Y_n, &\qfor n \geq T.
+        \end{cases}
+    \]
+
+    Next, we claim \(Z \sim \Markov\pqty{\lambda, P}\). By definition, \(T \geq 1\), so \(Z_0 = X_0 \sim \lambda\). To show this is Markov, consider the event
+    \[
+        A = \set{Z_0 = z_0, \ldots, Z_{n - 1} = z_{n - 1}},
+    \]
+    and consider the probability
+    \begin{align*}
+        \Prob\pqty{\Conditional{Z_{n + 1} = y}{Z_n = x, A}} &= \Prob\pqty{\Conditional{Z_{n + 1} = y, T > n}{Z_n = x, A}} + \Prob\pqty{\Conditional{Z_{n + 1} = y, T \leq n}{Z_n = x, A}} \\
+        &= \Prob\pqty{\Conditional{Z_{n + 1} = y}{Z_n = x, A, T > n}} \Prob\pqty{\Conditional{T > n}{Z_n = x, A}} \\
+        &\phantom{=} \qquad + \Prob\pqty{\Conditional{Z_{n + 1} = y}{Z_n = x, A, T \leq n}} \Prob\pqty{\Conditional{T \leq n}{Z_n = x, A}}.
+    \end{align*}
+
+    It suffices to show that
+    \[
+        \Prob\pqty{\Conditional{Z_{n + 1} = y}{Z_n = x, A, T > n}} = \Prob\pqty{\Conditional{Z_{n + 1} = y}{Z_n = x, A, T \leq n}} = P_{x, y}.
+    \]
+
+    We have
+    \begin{align*}
+        \Prob\pqty{\Conditional{Z_{n + 1} = y}{Z_n = x, A, T > n}} &= \Prob\pqty{\Conditional{Z_{n + 1} = y}{X_n = x, A, T > n}} \\
+        &= \sum_{z \in I} \Prob\pqty{\Conditional{Z_{n + 1} = y, Y_n = z}{X_n = x, A, T > n}} \\
+        &= \sum_{z \in I} \Prob\pqty{\Conditional{Z_{n + 1} = y}{X_n = x, A, T > n, Y_n = z}} \\
+        &\phantom{=} \hspace{16em} \cdot \Prob\pqty{\Conditional{Y_n = z}{X_n = x, A, T > n}} \\
+        &= \sum_{z \in I} P\pqty{x, y} \Prob\pqty{\Conditional{Y_n = z}{X_n = x, A, T > n}} \\
+        &= P\pqty{x, y},
+    \end{align*}
+    using the Strong Markov Property of \(W\), and similarly,
+    \[
+        \Prob\pqty{\Conditional{Z_{n + 1} = y}{Z_n = x, A, T \leq n}} = P\pqty{x, y}.
+    \]
+
+    Hence, we have
+    \[
+        \Prob\pqty{\Conditional{Z_{n + 1} = y}{Z_n = x, A}} = P\pqty{x, y},
+    \]
+    and hence \(Z \sim \Markov\pqty{\lambda, P}\).
+
+    Finally, we show that the probability converges.
+
+    \begin{align*}
+        \abs{\Prob\pqty{X_n = x} - \pi\pqty{x}} &= \abs{\Prob\pqty{Z_n = x} - \Prob\pqty{Y_n = x}} \\
+        &= \abs{\Prob\pqty{Z_n = x, T > n} + \Prob\pqty{Z_n = x, T \leq n} - \Prob\pqty{Y_n = x, T > n} - \Prob\pqty{Y_n = x, T \leq n}} \\
+        &= \abs{\Prob\pqty{Z_n = x, T > n} - \Prob\pqty{Y_n = x, T > n}} \\
+    \end{align*}
+
+    But this is the absolute difference of two non-negative quantities, each of with is \(\leq \Prob\pqty{T > n}\). So,
+    \begin{align*}
+        \abs{\Prob\pqty{X_n = x} - \pi\pqty{x}} &\leq \Prob\pqty{T > n} \\
+        &\to 0
+    \end{align*}
+    as \(n \to \infty\), since \(\Prob\pqty{T < \infty} = 1\).
+ This finishes the proof.
+\end{proof}
