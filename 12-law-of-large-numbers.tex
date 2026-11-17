@@ -1,0 +1,109 @@
+\section{The Ergodic Theorem/Law of Large Numbers}
+
+\begin{theorem}[The Ergodic Theorem for Markov Chains]
+    Let \(X \sim \Markov\pqty{\lambda, P}\) be irreducible, aperiodic and positive recurrent.
+
+    Them, for any \(x \in I\), we have
+    \[
+        \frac{1}{n} \sum_{i = 0}^{n - 1} \indicator \set{X_i = x} \toAlmostSure \pi\pqty{x}.
+    \]
+\end{theorem}
+
+Let \(\functiondomain{f}{I}{\RR}\) be any function such that
+\[
+    \Expt_{\pi} \bqty{\abs{f\pqty{X_0}}} < \infty,
+\]
+i.e.,
+\[
+    \sum_{x \in I} \pi\pqty{x} \abs{f\pqty{x}} < \infty,
+\]
+then
+\begin{align*}
+    \frac{1}{n} \sum_{i = 0}^{n - 1} f\pqty{X_i} &= \frac{1}{n} \sum_{i = 0}^{n - 1} \sum_{x \in I} f\pqty{x} \indicator \set{X_i = x} \\
+    &= \sum_{x \in I} \bqty{f\pqty{x} \frac{1}{n} \sum_{i = 0}^{n - 1} \indicator \set{X_i = x}} \\
+    &\toAlmostSure \sum_{x \in I} \bqty{f\pqty{x} \pi\pqty{x}} \\
+    &= \Expt_{\pi} \bqty{f\pqty{X_0}}.
+\end{align*}
+
+\small
+
+\begin{remark}[Non-Examinable]
+    What the theorem says is that
+    \[
+        \Prob\pqty{\frac{1}{n} \sum_{i = 0}^{n - 1} \indicator \set{X_i = x} \to \pi\pqty{x}} = 1,
+    \]
+    for every \(x \in I\). It is a simple measure theoretic fact (see \textit{II Probability and Measure}) that since \(I\) is countable, we have
+    \[
+        \Prob\pqty{\forall x \in I: \frac{1}{n} \sum_{i = 0}^{n - 1} \indicator \set{X_i = x} \to \pi\pqty{x}} = 1.
+    \]
+\end{remark}
+
+\begin{proof}[\proofname\ (Non-Examinable)]
+    Recall the following notation. Fix \(x\), and let
+    \[
+        V_n\pqty{x} = \sum_{i = 0}^{n - 1} \indicator \set{X_i = x},
+    \]
+    and consider the recurrence times \(T_x^{\pqty{0}} = 0\), and
+    \[
+        T_x^{\pqty{n + 1}} = \inf \set{n > T_x^{\pqty{n}}}{X_n = x}
+    \]
+    if the chain starts at \(X_0 = x\). What we want to show is that
+    \[
+        \frac{1}{n} V_n\pqty{x} \toAlmostSure \pi\pqty{x}.
+    \]
+
+    But we know that \(\Prob\pqty{T_x < \infty} = 1\), so by the Strong Markov Property,
+    \[
+        \pqty{X_{T_n + k}}_{k \geq 0} \sim \Markov\pqty{\kronecker_x, P},
+    \]
+    and is independent if \(\pqty{X_0, \ldots, X_{T_n}}\).
+
+    Therefore, the long-term behaviour of \(\flatfrac{V_n\pqty{x}}{n}\) is independent of the initial distribution \(\lambda\). So without loss of generality, we can assume that \(\lambda = \kronecker_x\).
+
+    Define the \term{successive excursision length} \(S_x^{\pqty{k}}\) for \(k \geq 1\), by
+    \[
+        S_x^{\pqty{k}} = \begin{cases}
+            T_x^{\pqty{k}} - T_x^{\pqty{k - 1}}, & \qif T_x^{\pqty{k - 1}} < \infty, \\
+            \infty, & \quad \text{otherwise}.
+        \end{cases}
+    \]
+
+    Then, by the definition, we have
+    \[
+        T_x^{\pqty{V_n\pqty{x} - 1}} \leq n - 1,
+    \]
+    or equivalently, by telescoping,
+    \[
+        S_x^{\pqty{1}} + \cdots + S_x^{\pqty{V_n\pqty{x} - 1}} \leq n - 1.
+    \]
+
+    Similarly, we have
+    \[
+        T_x^{\pqty{V_{n} \pqty{x}}} \geq n,
+    \]
+    and hence by telescoping,
+    \[
+        S_x^{\pqty{1}} + \cdots + S_x^{\pqty{V_n\pqty{x}}} \geq n.
+    \]
+
+    Hence,
+    \[
+        S_x^{\pqty{1}} + \cdots + S_x^{\pqty{V_n\pqty{x} - 1}} \leq n \leq S_x^{\pqty{1}} + \cdots + S_x^{\pqty{V_n\pqty{x}}}.
+    \]
+
+    Then, we have
+    \[
+        \frac{1}{V_n\pqty{x}} \sum_{j = 1}^{V_n\pqty{x} - 1} S_x^{\pqty{j}} \leq \frac{n}{V_n\pqty{x}} \leq \frac{1}{V_n\pqty{x}} \sum_{j = 1}^{V_n\pqty{x}} S_x^{\pqty{j}}.
+    \]
+
+    We have \(V_n\pqty{x} \toAlmostSure \infty\) as \(n \to \infty\), and the process \(\pqty{S_x^{\pqty{k}}}_{k \geq 1}\) is i.i.d. with mean
+    \[
+        \Expt_x\pqty{S_x^{\pqty{n}}} = \Expt_x\pqty{T_x} = \frac{1}{\pi\pqty{x}}.
+    \]
+
+    Hence, by the Strong Law of Large Numbers (see \textit{IA Probability}), both sides of the inequality converge almost surely to \(\Expt_x\pqty{S_x^{\pqty{n}}} = \flatfrac{1}{\pi\pqty{x}}\). Hence, we have
+    \[
+        \frac{n}{V_n\pqty{x}} \toAlmostSure \frac{1}{\pi\pqty{x}},
+    \]
+    which is what we want to prove.
+\end{proof}

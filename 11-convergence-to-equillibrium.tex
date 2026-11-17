@@ -158,3 +158,81 @@
     as \(n \to \infty\), since \(\Prob\pqty{T < \infty} = 1\).
  This finishes the proof.
 \end{proof}
+
+\begin{theorem}[Convergence to Zero for Transient Chains]
+    Let \(P\) be irreducible and aperiodic. If \(P\) is not recurrent, then \(p_{xy} \pqty{n} \to 0\) as \(n \to \infty\) for all \(x, y \in I\).
+\end{theorem}
+
+\begin{proof}
+    Consider, as in the previous proof, the transition matrix
+    \[
+        \tilde{P} \pqty{\pqty{x, y}, \pqty{x', y'}} = P\pqty{x, x'} P\pqty{y, y'}.
+    \]
+
+    If \(\tilde{P}\) is transient, then the sum
+    \[
+        \infty > \sum_{n \geq 1} \tilde{P}^n \pqty{\pqty{x, x}, \pqty{y, y}} \geq \sum_{n \geq 1} p_{xy}\pqty{n}^2
+    \]
+    and hence \(p_{xy}\pqty{n} \to 0\) as \(n \to \infty\).
+
+    If \(\tilde{P}\) is instead recurrent, then we let \(x, y \in I\) hbe arbitrary, and define, as before,
+    \[
+        \nu_y \pqty{x} = \Expt_y \bqty{\sum_{n = 0}^{T_y - 1} \indicator \set{X_n = x}}.
+    \]
+
+    Note that
+    \begin{align*}
+        \nu_y\pqty{I} &= \sum_{x \in I} \nu_y\pqty{x} \\
+        &= \Expt_y \bqty{\sum_{n = 0}^{T_y - 1} \indicator \set{X_n \in I}} \\
+        &= \Expt_y \bqty{T_y} \\
+        &= \infty.
+    \end{align*}
+
+    For any arbitrary \(M > 0\), then there exists a finite subset \(A \subseteq I\) such that \(\nu_y\pqty{A} > M\).
+
+    Then we define a new probability measure
+    \[
+        \mu\pqty{x} = \frac{\nu_y\pqty{x}}{\nu_y \pqty{A}} \indicator \set{x \in A}.
+    \]
+
+    Since \(P\) is irreducible, \(\nu_y\) is invariant for \(P\), and we have
+    \begin{align*}
+        \pqty{\mu P^n}_{y} &= \sum_{x \in I} \mu\pqty{x} p_{xy}\pqty{n} \\
+        &\leq \sum_{x \in A} \frac{\nu_y\pqty{x}}{\nu_y\pqty{A}} p_{xy}\pqty{n} \\
+        &= \frac{1}{\nu_y\pqty{A}} \nu_y \pqty{y} \\
+        &= \frac{1}{\nu_y\pqty{A}} \\
+        &< \frac{1}{M}.
+    \end{align*}
+
+    Define two new independent Markov chains by selecting an arbitrary \(x \in I\):
+    \begin{align*}
+        X' = \pqty{X'_n}_{n \geq 0} &\sim \Markov\pqty{\kronecker_x, P}, \\
+        Y' = \pqty{Y'_n}_{n \geq 0} &\sim \Markov\pqty{\mu, P}.
+    \end{align*}
+
+    Also, let \(T = \inf\set{n \geq 1}{X'_n = Y'_n}\). Then, as we have shown previously, \(\Prob\pqty{T < \infty} = 1\). Finally, let
+    \[
+        Z_n = \begin{cases}
+            X'_n, &\qfor n < T, \\
+            Y'_n, &\qfor n \geq T.
+        \end{cases}
+    \]
+
+    As we have shown last time, \(Z_n\) is a Markov chain, with \(Z = \pqty{Z_n}_{n \geq 0} \sim \Markov\pqty{\mu, P}\), and we now know
+    \begin{align*}
+        p_{xy}\pqty{n} &= \Prob\pqty{X_n' = y} \\
+        &= \Prob\pqty{X_n' = y, T > n} + \Prob\pqty{X_n' = y, T \leq n} \\
+        &\leq \Prob\pqty{T > n} + \Prob\pqty{Z_n = y} \\
+        &= \Prob\pqty{T > n} + \pqty{\mu P^n}_y \\
+        &< \Prob\pqty{T > n} + \frac{1}{M}.
+    \end{align*}
+
+    Therefore,
+    \[
+        \limsup_{n \to \infty} p_{xy}\pqty{n} \leq \frac{1}{M}.
+    \]
+    but \(M > 0\) was arbitrary, so we have
+    \[
+        \lim_{n \to \infty} p_{xy}\pqty{n} = 0.
+    \]
+\end{proof}
