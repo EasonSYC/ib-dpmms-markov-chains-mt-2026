@@ -68,7 +68,7 @@ Write \(\pqty{X_n^+, X_n^-} = f\pqty{X_n}\). We claim the following.
 \begin{proof}[\proofname\ of \autoref{lem:ssrw-decomposition}]
     We can write
     \[
-        X_N = \sum_{i = 1}^{n} \xi_i,
+        X_n = \sum_{i = 1}^{n} \xi_i,
     \]
     where the sequence \(\pqty{\xi_i}\) consists of independent and identically distributed copies of
     \[
@@ -79,7 +79,7 @@ Write \(\pqty{X_n^+, X_n^-} = f\pqty{X_n}\). We claim the following.
         X_n^+ = \sum_{i = 1}^{n} \frac{\xi_i^1 + \xi_i^2}{\sqrt{2}}, \quad X_n^- = \sum_{i = 1}^{n} \frac{\xi_i^1 - \xi_i^2}{\sqrt{2}}.
     \]
 
-    Then each of them if a SSRW on \(\flatfrac{\ZZ}{\sqrt{2}}\). To check they are also independent, it suffices to check each of the step is independent, i.e., that
+    Then each of them is a SSRW on \(\flatfrac{\ZZ}{\sqrt{2}}\). To check that they are also independent, it suffices to check that the two coordinates of each step are independent, i.e., that
     \[
         \xi_i^1 + \xi_i^2 \qand \xi_i^1 - \xi_i^2
     \]
@@ -93,11 +93,11 @@ Write \(\pqty{X_n^+, X_n^-} = f\pqty{X_n}\). We claim the following.
     \]
 \end{proof}
 
-Continuing with \(n = 2\), arguing as before, we have \(p\pqty{n} > 0\) if and only if \(n\) is even, and
+Continuing with \(n = 2\), arguing as before, we have \(p_{00}\pqty{n} > 0\) if and only if \(n\) is even, and
 \[
-    \Prob_{00} \pqty{2n} = \Prob_0 \pqty{X_{2n}^+ = 0, X_{2n}^- = 0} = \Prob_0 \pqty{X_{2n}^+ = 0} \cdot \Prob_0 \pqty{X_{2n}^- = 0} = p_{00}\pqty{2n}^2,
+    p_{00} \pqty{2n} = \Prob_0 \pqty{X_{2n}^+ = 0, X_{2n}^- = 0} = \Prob_0 \pqty{X_{2n}^+ = 0} \cdot \Prob_0 \pqty{X_{2n}^- = 0} = p_{00}\pqty{2n}^2,
 \]
-and by previously, we have
+and by the one-dimensional calculation above, we have
 \[
     p_{00} \pqty{2n} \sim \pqty{\frac{1}{\sqrt{\pi n}}}^2 = \frac{1}{\pi n}.
 \]
@@ -107,7 +107,7 @@ Therefore, we have
     \sum_{n \geq 0} p_{00}\pqty{n} = \sum_{n \geq 0} p_{00}\pqty{2n} \geq \sum_{n \geq N_0} \frac{1}{2 \pi n} = \infty,
 \]
 
-\paragraph{Symmetric Random Walk on \(\ZZ^3\)} We now consider \(d \geq 3\). Let \(\pqty{X_n}_{n \geq 0}\) be the SSRW on \(\ZZ^d\), with \(X_0 = 0\). As before, note that \(p_{00}\pqty{n} > 0\) if and only if \(n\) is even. In \(2n\) steps, being back at \(0\) having started at \(0\) means that we took \(i\) steps in the \(+e_1\) direction, \(i\) steps in the \(-e_1\) direction, \(j\) steps in the \(+e_2\) direction, \(j\) steps in the \(-e_2\) direction, and \(k\) steps in the \(+e_3\) direction, \(k\) steps in the \(-e_3\) direction, and so on, for some non-negative integers \(i, j, k, \ldots\) such that \(i + j + k = n\). Therefore, we have
+\paragraph{Symmetric Random Walk on \(\ZZ^3\)} We now consider \(d = 3\). Let \(\pqty{X_n}_{n \geq 0}\) be the SSRW on \(\ZZ^d\), with \(X_0 = 0\). As before, note that \(p_{00}\pqty{n} > 0\) if and only if \(n\) is even. In \(2n\) steps, being back at \(0\) having started at \(0\) means that we took \(i\) steps in the \(+e_1\) direction, \(i\) steps in the \(-e_1\) direction, \(j\) steps in the \(+e_2\) direction, \(j\) steps in the \(-e_2\) direction, and \(k\) steps in the \(+e_3\) direction, \(k\) steps in the \(-e_3\) direction, and so on, for some non-negative integers \(i, j, k, \ldots\) such that \(i + j + k = n\). Therefore, we have
 \begin{align*}
     p_{00} \pqty{2n} &= \sum_{\substack{i + j + k = n}} \binom{2n}{i, i, j, j, k, k} \pqty{\frac{1}{6}}^{2n} \\
     &= \sum_{i + j + k = n} \binom{2n}{n} \binom{n}{i, j, k}^2 \pqty{\frac{1}{2}}^{2n} \pqty{\frac{1}{3}}^{2n} \\

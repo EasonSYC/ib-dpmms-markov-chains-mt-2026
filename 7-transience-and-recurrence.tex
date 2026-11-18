@@ -30,7 +30,7 @@
 
     Suppose this is true for \(r\). Then we have
     \begin{align*}
-        \Prob_i \pqty{V_i > r + 1} &= \Prob_i \pqty{V_i > r + 1, V_i > v} \\
+        \Prob_i \pqty{V_i > r + 1} &= \Prob_i \pqty{V_i > r + 1, V_i > r} \\
         &= \Prob_i \pqty{V_i > r} \cdot \Prob_i \pqty{\Conditional{V_i > r + 1}{V_i > r}} \\
         &= f_i^r \Prob_i \pqty{\Conditional{T_i^{\pqty{r + 1}} < \infty}{T_i^{\pqty{r}} < \infty}} \\
         &= f_i^r \Prob_i \pqty{T_i < \infty} \\
@@ -44,12 +44,12 @@
     \begin{enumerate}
         \item If \(f_i = \Prob_i \pqty{T_i < \infty} = 1\), then \(i\) is recurrent, and
         \[
-            \sum_{n \geq 0} p_{ii} \pqty{k} = \infty.
+            \sum_{n \geq 0} p_{ii} \pqty{n} = \infty.
         \]
 
         \item If \(f_i = \Prob_i \pqty{T_i < \infty} < 1\), then \(i\) is transient, and
         \[
-            \sum_{n \geq 0} p_{ii} \pqty{k} < \infty.
+            \sum_{n \geq 0} p_{ii} \pqty{n} < \infty.
         \]
     \end{enumerate}
 \end{theorem}
@@ -105,10 +105,11 @@
 \end{theorem}
 
 \begin{proof}
-    Let \(x \in C\). Since \(C\) is closed, we have some \(y \in C\), such that
+    Let \(x \in C\). Since \(C\) is finite and closed, the chain remains in \(C\), so
     \[
-        \Prob_x \pqty{X_n = y \text{ for infinitely many } n} > 0.
+        \Prob_x \pqty{X_n = y \text{ for infinitely many } n} > 0
     \]
+    for some \(y \in C\), by the pigeonhole principle.
 
     Since \(C\) is a communicating class, \(x \communicatewith y\), so there is \(m \geq 1\) such that \(p_{yx} \pqty{m} > 0\). Then
     \begin{align*}

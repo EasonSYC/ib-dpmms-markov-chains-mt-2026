@@ -15,7 +15,7 @@
 \begin{proof}
     If the process \(X \sim \Markov\pqty{\lambda, P}\), then
     \begin{align*}
-        \Prob\pqty{X_0 = x_0, \ldots, X_n = x_n} &= \Prob\pqty{\Conditional{X_0 = x_0}{X_{n - 1} = x_{n - 1}, \ldots, X_0 = x_0}} \cdot \Prob\pqty{X_{n - 1} = x_{n - 1}, \ldots, X_0 = x_0} \\
+        \Prob\pqty{X_0 = x_0, \ldots, X_n = x_n} &= \Prob\pqty{\Conditional{X_n = x_n}{X_{n - 1} = x_{n - 1}, \ldots, X_0 = x_0}} \cdot \Prob\pqty{X_{n - 1} = x_{n - 1}, \ldots, X_0 = x_0} \\
         &= P_{x_{n - 1} x_n} \Prob\pqty{X_{n - 1} = x_{n - 1}, \ldots, X_0 = x_0} \\
         &= \cdots \\
         &= P_{x_{n - 1} x_n} P_{x_{n - 2} x_{n - 1}} \cdots P_{x_0 x_1} \Prob\pqty{X_0 = x_0} \\

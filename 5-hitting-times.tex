@@ -7,7 +7,7 @@
     \]
     recalling \(\inf \emptyset = \infty\).
 
-    The \term{hitting probabilities} of \(A\) is given by \(\functiondomain{h^A}{I}{\ccintv{0}{1}}\) with
+    The \term{hitting probability} of \(A\) is given by \(\functiondomain{h^A}{I}{\ccintv{0}{1}}\) with
     \[
         h_i^A = \Prob_i \pqty{T_A < \infty}
     \]
@@ -95,15 +95,15 @@
     Consider the Markov chain illustrated in \autoref{fig:hitting-probability-example}. Then the transition matrix is given by
     \[
         P = \pmqty{1 & 0 & 0 & 0 \\ 1/2 & 0 & 1/2 & 0 \\ 0 & 1/2 & 0 & 1/2 \\ 0 & 0 & 0 & 1}.
-    \] 
+    \]
 
-    So there are two absorbing states, \(0\) and \(3\). We have \(h_3^A = 1\) and \(h_0^A = h_0^A\), with
+    So there are two absorbing states, \(0\) and \(3\). Let \(A = \set{3}\). We have \(h_3^A = 1\), with
     \begin{align*}
         h_1^A &= \frac{1}{2} h_0^A + \frac{1}{2} h_2^A \\
         h_2^A &= \frac{1}{2} h_1^A + \frac{1}{2} h_3^A.
     \end{align*}
 
-    This is not enough information to solve for \(h_1^A\) and \(h_2^A\). However, we can use the minimal property and considering \(h_0^A = 0\) to get \(h_2^A = \flatfrac{2}{3}\) and \(h_1^A = \flatfrac{1}{3}\).
+    This is not enough information to solve for \(h_1^A\) and \(h_2^A\) but we can use the minimal property. With \(h_0^A = 0\), we get \(h_2^A = \flatfrac{2}{3}\) and \(h_1^A = \flatfrac{1}{3}\).
 
     Another way to find \(h_2^A\) is simply by evaluating an infinite geometric series
     \[
@@ -160,7 +160,7 @@
     \[
         P\pqty{0, 0} = 1
     \]
-    for the distinct state. What is the probability of distinction, i.e., \(h_i^A\) where \(A = \set{0}\)?
+    for the distinction state. What is the probability of distinction (hitting \(0\)), i.e., \(h_i^A\) where \(A = \set{0}\)?
 
     Clearly, if \(i = 0\), then \(h_i^A = 1\), and for \(i \geq 1\), the recursion equation
     \[
@@ -203,7 +203,7 @@
             h_i^A = \frac{\sum_{j \geq i} \gamma_j}{\sum_{j \geq 0} \gamma_j}
         \]
         for all \(i \geq 1\).
-        \item IF \(S = \infty\) diverges, then \(h_0^A = 1\), \(h_1^A = 1\) and \(h_i^A = 1\) for all \(i\).
+        \item If \(S = \infty\), then \(h_0^A = 1\), \(h_1^A = 1\), and \(h_i^A = 1\) for all \(i\).
     \end{itemize}
 \end{example}
 
@@ -212,11 +212,12 @@ Now we return to \autoref{fig:hitting-probability-example}.
 \begin{example}[Mean Hitting Time]
     Refer to \autoref{fig:hitting-probability-example}, let \(A = \set{0, 3}\), we have
     \[
-        k_1^A = 1 + \frac{1}{2} k_2^A = 1 + \frac{1}{2} k_1^A
+        k_1^A = 1 + \frac{1}{2} k_2^A,\qquad
+        k_2^A = 1 + \frac{1}{2} k_1^A
     \]
     so
     \[
-        k_1^a = 2 = k_2^A.
+        k_1^A = k_2^A = 2.
     \]
 
     It is tempting to understand that the \(1\) arises from

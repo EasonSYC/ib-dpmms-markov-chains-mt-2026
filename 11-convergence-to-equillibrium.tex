@@ -44,7 +44,7 @@
 \end{proof}
 
 \begin{example}
-    If \(P\) is irreducible and \(P\pqty{i, i} > 0\) for some \(i \in \), then the whole chain is aperiodic.
+    If \(P\) is irreducible and \(P\pqty{i, i} > 0\) for some \(i \in I\), then the whole chain is aperiodic.
 \end{example}
 
 \begin{theorem}[Convergence to Equilibrium]
@@ -150,7 +150,7 @@
         &= \abs{\Prob\pqty{Z_n = x, T > n} - \Prob\pqty{Y_n = x, T > n}} \\
     \end{align*}
 
-    But this is the absolute difference of two non-negative quantities, each of with is \(\leq \Prob\pqty{T > n}\). So,
+    But this is the absolute difference of two non-negative quantities, each of which is \(\leq \Prob\pqty{T > n}\). So,
     \begin{align*}
         \abs{\Prob\pqty{X_n = x} - \pi\pqty{x}} &\leq \Prob\pqty{T > n} \\
         &\to 0
@@ -175,7 +175,7 @@
     \]
     and hence \(p_{xy}\pqty{n} \to 0\) as \(n \to \infty\).
 
-    If \(\tilde{P}\) is instead recurrent, then we let \(x, y \in I\) hbe arbitrary, and define, as before,
+    If \(\tilde{P}\) is instead recurrent, then we let \(x, y \in I\) be arbitrary, and define, as before,
     \[
         \nu_y \pqty{x} = \Expt_y \bqty{\sum_{n = 0}^{T_y - 1} \indicator \set{X_n = x}}.
     \]

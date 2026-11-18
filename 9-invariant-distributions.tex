@@ -24,7 +24,7 @@ i.e., taking \(\pi\) as a row vector,
 \end{theorem}
 
 \begin{proof}
-    We show by induction. This is obvious for \(n = 0\). Now, suppose \(X_N \sim \pi\), then
+    We show by induction. This is obvious for \(n = 0\). Now, suppose \(X_n \sim \pi\), then
     \begin{align*}
         \Prob\pqty{X_{n + 1} = j} &= \sum_{i \in I} \Prob\pqty{X_n = i, X_{n + 1} = j} \\
         &= \sum_{i \in I} \pi_i P_{ij} \\
@@ -63,7 +63,7 @@ i.e., taking \(\pi\) as a row vector,
         \]
         for all \(x, y\) as \(n \to \infty\).
 
-        \item If \(I\) is finite, then \(X\) always has an invariant distribution, by compatness. (We are not going to prove this.) Otherwise, things are more complex.
+        \item If \(I\) is finite, then \(X\) always has an invariant distribution, by compactness. (We are not going to prove this.) Otherwise, things are more complex.
     \end{itemize}
 \end{remarks}
 
@@ -110,7 +110,7 @@ i.e., taking \(\pi\) as a row vector,
         \item This is obvious from the definition, since we are counting the number of visits to \(k\) before returning to \(k\), which is exactly 1.
         \item[(iii)] Since \(P\) is recurrent, \(T_k < \infty\) with probability 1, and \(X_{T_k} = k\), we have
         \begin{align*}
-            \nu_k \pqty{i} &= \Expt_k \pqty{\sum_{n = 0}^{T_k - 1} \indicator\pqty{X_n = j}} \\
+            \nu_k \pqty{i} &= \Expt_k \pqty{\sum_{n = 0}^{T_k - 1} \indicator\pqty{X_n = i}} \\
             &= \Expt_k \pqty{\sum_{n = 1}^{T_k} \indicator\pqty{X_n = j}} \\
             &= \Expt_k \pqty{\sum_{n = 1}^{\infty} \indicator\pqty{X_n = i, n \leq T_k}} \\
             &= \sum_{n \geq 1} \Prob_k \pqty{X_n = i, n \leq T_k} \\
@@ -180,8 +180,8 @@ i.e., taking \(\pi\) as a row vector,
     Therefore, we have
     \begin{align*}
         \lambda_i &\geq \sum_{n = 1}^{\infty} \Prob_k \pqty{X_n = i, T_k \geq n} \\
-        &= \sum{n = 1}^{\infty} \Expt_k \pqty{\indicator\pqty{X_n = i, T_k \geq n}} \\
-        &= \Expt_k \pqty{\sum_{n = 1}^{T_k} \indicator\pqty{X_n = i}} \\
+        &= \sum_{n = 1}^{\infty} \Expt_k \pqty{\indicator\pqty{X_n = i, T_k \geq n}} \\
+        &= \Expt_k \pqty{\sum_{n = 0}^{T_k - 1} \indicator\pqty{X_n = i}} \\
         &= \nu_k \pqty{i}.
     \end{align*}
 
@@ -189,7 +189,7 @@ i.e., taking \(\pi\) as a row vector,
     \[
         \pqty{\lambda - \nu_k} = \pqty{\lambda - \nu_k} P^n
     \]
-    for all \(n \geq 1\). The, for all \(i \in I\) and \(i \neq k\), we have
+    for all \(n \geq 1\). Then, for all \(i \in I\) and \(i \neq k\), we have
     \begin{align*}
         0 &= \pqty{\lambda - \nu_k}_k \\
         &= \bqty{\pqty{\lambda - \nu_k} P^n}_k \\
@@ -204,7 +204,7 @@ i.e., taking \(\pi\) as a row vector,
 \end{proof}
 
 \begin{definition}[Positive and Null Recurrence]
-    A recurrent state \(i\) is is \term{positive recurrent} if \(\Expt_i \pqty{T_i} < \infty\) , and \term{null recurrent} if \(\Expt_i \pqty{T_i} = \infty\).
+    A recurrent state \(i\) is \term{positive recurrent} if \(\Expt_i \pqty{T_i} < \infty\), and \term{null recurrent} if \(\Expt_i \pqty{T_i} = \infty\).
 \end{definition}
 
 \begin{theorem}
@@ -304,6 +304,6 @@ i.e., taking \(\pi\) as a row vector,
         \[
             \pi_i = \pqty{1 - \frac{p}{q}} \pqty{\frac{p}{q}}^i,
         \]
-        for \(i \geq 0\). So the chain is positive recurrent, an this is its unique stationary distribution.
+        for \(i \geq 0\). So the chain is positive recurrent, and this is its unique stationary distribution.
     \end{enumerate}
 \end{examples}

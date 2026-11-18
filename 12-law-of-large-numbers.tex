@@ -3,7 +3,7 @@
 \begin{theorem}[The Ergodic Theorem for Markov Chains]
     Let \(X \sim \Markov\pqty{\lambda, P}\) be irreducible, aperiodic and positive recurrent.
 
-    Them, for any \(x \in I\), we have
+    Then, for any \(x \in I\), we have
     \[
         \frac{1}{n} \sum_{i = 0}^{n - 1} \indicator \set{X_i = x} \toAlmostSure \pi\pqty{x}.
     \]
@@ -60,7 +60,7 @@ then
 
     Therefore, the long-term behaviour of \(\flatfrac{V_n\pqty{x}}{n}\) is independent of the initial distribution \(\lambda\). So without loss of generality, we can assume that \(\lambda = \kronecker_x\).
 
-    Define the \term{successive excursision length} \(S_x^{\pqty{k}}\) for \(k \geq 1\), by
+    Define the \term{successive excursion length} \(S_x^{\pqty{k}}\) for \(k \geq 1\), by
     \[
         S_x^{\pqty{k}} = \begin{cases}
             T_x^{\pqty{k}} - T_x^{\pqty{k - 1}}, & \qif T_x^{\pqty{k - 1}} < \infty, \\
